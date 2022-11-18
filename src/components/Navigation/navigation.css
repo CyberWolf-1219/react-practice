@@ -1,0 +1,36 @@
+nav {
+    width: 100vw;
+    max-width: 1280px;
+    height: 100px;
+    padding: 0px 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav span img {
+    min-width: 80px;
+    max-width: 100px;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+nav ul a li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav a button {
+    margin: 0;
+    padding: 10px 15px;
+}
