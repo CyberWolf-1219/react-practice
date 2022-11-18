@@ -1,0 +1,10 @@
+.user_avatar {
+  max-width: 3rem;
+  max-height: 3rem;
+  display: inline-block;
+
+  & img {
+    width: 100%;
+    height: 100%;
+  }
+}

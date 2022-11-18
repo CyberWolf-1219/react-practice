@@ -1,0 +1,20 @@
+{
+  "type": "module",
+  "name": "chat-api",
+  "version": "1.0.0",
+  "description": "react practice project chat app",
+  "main": "main.js",
+  "scripts": {
+    "test": "nodemon main.js"
+  },
+  "author": "BlackMonkey-1219",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "socket.io": "^4.5.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

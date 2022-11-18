@@ -1,0 +1,38 @@
+.auth_panel {
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth_panel .form {
+  z-index: 10;
+  width: 500px;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.5019607843);
+  border: 1px solid #fff;
+}
+.auth_panel .form .row {
+  margin-bottom: 1rem;
+}
+.auth_panel .form .row input {
+  width: 100%;
+  height: 2rem;
+  font-size: 1.2rem;
+}
+.auth_panel .form .row label {
+  float: left;
+  text-align: left;
+  font-size: 1.2rem;
+}
+.auth_panel .form .row:last-child button {
+  width: 100%;
+  height: 2rem;
+  font-size: 1.2rem;
+  font-family: inherit;
+}/*# sourceMappingURL=AuthPanel.css.map */

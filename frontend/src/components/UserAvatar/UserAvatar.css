@@ -1,0 +1,9 @@
+.user_avatar {
+  max-width: 3rem;
+  max-height: 3rem;
+  display: inline-block;
+}
+.user_avatar img {
+  width: 100%;
+  height: 100%;
+}/*# sourceMappingURL=UserAvatar.css.map */

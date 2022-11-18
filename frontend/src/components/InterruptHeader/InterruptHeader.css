@@ -1,0 +1,10 @@
+.interrupt_header {
+  width: 100%;
+  padding-bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3rem;
+  border-bottom: 1px solid #a3a3a3;
+}/*# sourceMappingURL=InterruptHeader.css.map */
