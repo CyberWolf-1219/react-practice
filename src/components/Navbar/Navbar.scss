@@ -1,0 +1,52 @@
+nav {
+  width: 90vw;
+  max-width: 1440px;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  & .logo {
+    max-width: 150px;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  & .nav_container {
+    width: 100%;
+    margin: 0px auto;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    & a {
+      position: relative;
+      text-decoration: none;
+      margin: 0px 10px;
+      color: #00000080;
+
+      &.active {
+        color: #000;
+        font-weight: bold;
+
+        &::after {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          content: "";
+          width: 80%;
+          height: 5px;
+          background-color: black;
+        }
+      }
+    }
+  }
+
+  & button {
+    width: 7rem;
+    padding: 0.5rem;
+  }
+}

@@ -1,0 +1,16 @@
+.sponsorbar {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  filter: grayscale(100%);
+
+  & a span img {
+    max-width: 100px;
+    object-fit: contain;
+  }
+}

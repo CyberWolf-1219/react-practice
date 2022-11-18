@@ -1,0 +1,12 @@
+@import "./variables.scss";
+
+.App {
+  background-image: $gradient;
+  text-align: center;
+  overflow-x: hidden;
+  height: 100%;
+
+  & > * {
+    margin: 0 auto;
+  }
+}

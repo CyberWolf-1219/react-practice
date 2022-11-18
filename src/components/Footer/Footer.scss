@@ -1,0 +1,76 @@
+footer {
+  width: 100%;
+  height: 500px;
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  & .top {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    & > * {
+      width: 24%;
+    }
+
+    & > div:nth-child(1) {
+      & img {
+        width: 60%;
+        object-fit: contain;
+      }
+      & p {
+        width: 100%;
+      }
+    }
+
+    & > div:nth-child(2) span {
+      display: block;
+      margin-bottom: 0.5rem;
+      text-align: left;
+      & a {
+        color: #000;
+        text-decoration: none;
+        font-size: 1.3rem;
+      }
+    }
+
+    & > div:nth-child(3) span {
+      display: block;
+      margin-bottom: 0.5rem;
+      text-align: left;
+
+      & a {
+        color: #000;
+        text-decoration: none;
+        font-size: 1.3rem;
+      }
+    }
+
+    & > div:nth-child(4) {
+      text-align: left;
+
+      & h3 {
+        margin-top: 0;
+      }
+
+      & div:nth-child(4) {
+        margin-top: 1rem;
+        & span {
+          & a img {
+            width: 35px;
+            height: 35px;
+            background-color: #2cb7bc;
+            padding: 5px;
+            border-radius: 5px;
+            margin: 0px 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}

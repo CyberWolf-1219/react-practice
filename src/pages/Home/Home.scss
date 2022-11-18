@@ -1,0 +1,272 @@
+@import "./../../css/variables.scss";
+
+section.hero_section {
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: visible;
+
+  & .prop {
+    position: absolute;
+    width: 10rem;
+    height: 10rem;
+  }
+
+  & > .prop:nth-child(1) {
+    top: 15%;
+    left: -1%;
+  }
+  & > .prop:nth-child(2) {
+    top: 1%;
+    right: -3%;
+    transform: rotate(180deg);
+    // transform: scale(0.8);
+  }
+  & > .prop:nth-child(3) {
+    bottom: 0%;
+    left: -5%;
+  }
+  & > .prop:nth-child(4) {
+    bottom: 0%;
+    right: -5%;
+    transform: rotate(180deg);
+  }
+
+  & span {
+    margin-top: 2rem;
+
+    & button {
+      padding: 24px 48px;
+      margin-right: 18px;
+    }
+
+    & a {
+      margin-left: 18px;
+    }
+  }
+
+  & .main_graphics {
+    position: relative;
+    bottom: -5rem;
+    height: 100%;
+    width: 100%;
+    overflow-y: visible;
+
+    & .prop {
+      width: 10rem;
+      height: 10rem;
+      right: 0%;
+      top: -17%;
+    }
+
+    & .hero {
+      width: 100%;
+      max-width: 1280px;
+      height: 100%;
+      max-height: 800px;
+      object-fit: contain;
+    }
+  }
+}
+
+section.section_2 {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  overflow: visible;
+
+  & .sponsorbar {
+    margin-top: 10rem;
+
+    @media screen and (min-width: 1200px) {
+      margin-top: 20rem;
+    }
+  }
+
+  & .main_graphics {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    & .left {
+      width: 40%;
+      height: 100%;
+
+      & img {
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+
+    & .right {
+      width: 60%;
+      height: 100%;
+      text-align: left;
+
+      & div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        & span {
+          margin: 0px 10px;
+          width: 30%;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 2px;
+
+          & b {
+            font-size: 1.5rem;
+          }
+
+          & p {
+            margin: 0;
+            font-size: 0.8rem;
+            line-height: 1;
+            text-align: left;
+            word-wrap: break-word;
+          }
+        }
+      }
+    }
+  }
+}
+
+section.section_3 {
+  position: relative;
+  height: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #bef1f3;
+  overflow: hidden;
+
+  & .prop {
+    position: absolute;
+    width: 10rem;
+    height: 10rem;
+  }
+
+  & .prop:nth-child(1) {
+    top: -5%;
+    left: -5%;
+    transform: rotateZ(50deg);
+  }
+  & .prop:nth-child(2) {
+    bottom: -2%;
+    right: -3%;
+    transform: rotateZ(-50deg);
+  }
+}
+
+section.section_4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+
+  & img {
+    // height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+section.section_5 {
+  height: 30rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #bef1f3;
+  overflow: visible;
+
+  & .prop {
+    position: absolute;
+    z-index: 0;
+  }
+
+  & .prop:nth-child(1) {
+    left: -20px;
+    bottom: 0px;
+  }
+
+  & .prop:nth-child(2) {
+    height: 100%;
+    right: -20px;
+    top: -0px;
+  }
+
+  & .left {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+
+    & h2,
+    & h3 {
+      width: 100%;
+      margin: 1rem 0;
+    }
+
+    & h2 {
+      font-size: 3rem;
+    }
+    & h3 {
+      font-size: 2rem;
+      word-spacing: 0.5rem;
+    }
+
+    & div {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      & input {
+        width: 70%;
+        height: 4rem;
+        border: none;
+        outline: none;
+        border-radius: 0.5rem 0 0 0.5rem;
+      }
+      & button {
+        width: 30%;
+        height: 4rem;
+        padding: 0.5rem;
+        border-radius: 0 0.5rem 0.5rem 0;
+        font-size: 1rem;
+        line-height: 1.2;
+      }
+    }
+  }
+
+  & .right {
+    flex: 1.5;
+    position: relative;
+    height: 100%;
+
+    & img {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      object-fit: contain;
+      top: -10%;
+      right: -30%;
+    }
+  }
+}

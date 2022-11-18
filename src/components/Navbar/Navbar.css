@@ -1,0 +1,48 @@
+nav {
+  width: 90vw;
+  max-width: 1440px;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+nav .logo {
+  max-width: 150px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center;
+     object-position: center;
+}
+nav .nav_container {
+  width: 100%;
+  margin: 0px auto;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+nav .nav_container a {
+  position: relative;
+  text-decoration: none;
+  margin: 0px 10px;
+  color: rgba(0, 0, 0, 0.5019607843);
+}
+nav .nav_container a.active {
+  color: #000;
+  font-weight: bold;
+}
+nav .nav_container a.active::after {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  content: "";
+  width: 80%;
+  height: 5px;
+  background-color: black;
+}
+nav button {
+  width: 7rem;
+  padding: 0.5rem;
+}/*# sourceMappingURL=Navbar.css.map */

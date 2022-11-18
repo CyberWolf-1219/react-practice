@@ -1,0 +1,51 @@
+.carousel_container {
+  position: relative;
+  margin: 2rem 0;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+
+  & button {
+    width: 65px;
+    min-width: 65px;
+    max-width: 65px;
+    height: 65px;
+    min-height: 65px;
+    max-height: 65px;
+    background-color: #fff;
+    border-radius: 50%;
+    z-index: 2;
+
+    & img {
+      margin-top: 8px;
+    }
+  }
+  & .slide_prev_btn {
+    margin-right: 2rem;
+  }
+  & .slide_next_btn {
+    margin-left: 2rem;
+  }
+
+  & .slider_container {
+    overflow-x: hidden;
+
+    & .slider {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 2rem;
+      transition: transform 0.25s ease;
+      transform-origin: left;
+
+      & > * {
+        flex: 1;
+      }
+    }
+  }
+}

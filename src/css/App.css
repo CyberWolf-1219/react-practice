@@ -1,0 +1,9 @@
+.App {
+  background-image: linear-gradient(180deg, #2cb7bc, #ffffff 60%);
+  text-align: center;
+  overflow-x: hidden;
+  height: 100%;
+}
+.App > * {
+  margin: 0 auto;
+}/*# sourceMappingURL=App.css.map */
