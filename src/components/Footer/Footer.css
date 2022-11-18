@@ -1,0 +1,30 @@
+footer {
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+footer a {
+  text-decoration: none;
+  color: black;
+}
+footer .footer_nav {
+  list-style-type: none;
+}
+footer .footer_nav li {
+  display: inline-block;
+  margin: 0 2rem;
+}
+@media screen and (max-width: 425px) {
+  footer .footer_nav li {
+    display: block;
+  }
+}
+@media screen and (max-width: 768px) {
+  footer {
+    flex-direction: column;
+  }
+}/*# sourceMappingURL=Footer.css.map */

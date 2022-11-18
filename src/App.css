@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+  position: relative;
+  background-image: url("./assets/bg_divider.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.App .menu_btn {
+  display: none;
+}
+@media screen and (max-width: 1015px) {
+  .App {
+    background-size: auto;
+  }
+  .App .menu_btn {
+    display: inline-block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 30px;
+    top: 30px;
+    fill: #fff;
+    outline-color: #fff;
+  }
+}/*# sourceMappingURL=App.css.map */
