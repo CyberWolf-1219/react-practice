@@ -1,0 +1,34 @@
+.layout {
+    width: 100%;
+    height: 50px;
+    padding: 0.5rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+
+    /* box-shadow: 0 0 5px 0px #aaaaaa; */
+    border-radius: 10px;
+
+    transition: all 0.25s ease;
+}
+
+.layout:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px 5px #aaaaaa;
+}
+
+.friend_pic {
+    flex: 1;
+    height: 100%;
+
+    object-fit: fill;
+
+}
+
+.friend_name {
+    flex: 3;
+
+}

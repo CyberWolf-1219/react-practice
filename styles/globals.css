@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+html,
+body * {
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+
+p {
+  margin: 0 0 1rem 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    color: rgb(0, 0, 0);
+    background: rgb(230, 230, 230);
+  }
+}
+
+.card {
+  padding: 1rem;
+  border-radius: 15px;
+  /* box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.5); */
+  background-color: #fff;
+}
+
+.container>* {
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+input {
+  border: 2px solid rgba(70, 70, 70, 0.6);
+  border-radius: 10px;
+}

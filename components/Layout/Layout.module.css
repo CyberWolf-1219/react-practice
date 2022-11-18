@@ -1,0 +1,9 @@
+.layout {
+    margin: 1rem auto;
+
+    display: grid;
+    /* grid-auto-rows: minmax(50vh, 100vh); */
+    grid-template-columns: 100%;
+    justify-content: center;
+    justify-items: center;
+}

@@ -1,0 +1,21 @@
+.layout {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.profile_pic {
+    border-radius: 50%;
+}
+
+.bio {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    word-break: break-all;
+}

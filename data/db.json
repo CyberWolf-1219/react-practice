@@ -1,0 +1,146 @@
+{
+  "users": [
+    {
+      "user_name": "Allen",
+      "user_password": "12345",
+      "user_email": "allen@gmail.com",
+      "user_bio": "I'm the king.",
+      "user_gender": "boy",
+      "user_personality": "introvert",
+      "id": 1
+    },
+    {
+      "user_name": "Vegeta",
+      "user_password": "prince",
+      "user_email": "vegeta@gmail.com",
+      "user_gender": "boy",
+      "user_personality": "introvert",
+      "id": 2
+    },
+    {
+      "user_name": "Goku",
+      "user_password": "food",
+      "user_email": "goku@gmail.com",
+      "user_gender": "boy",
+      "user_personality": "extrovert",
+      "id": 3
+    },
+    {
+      "user_name": "Gohan",
+      "user_password": "nerd",
+      "user_email": "gohan@gmail.com",
+      "user_gender": "boy",
+      "user_personality": "extrovert",
+      "id": 4
+    },
+    {
+      "user_name": "Goten",
+      "user_password": "brat",
+      "user_email": "goten@gmail.com",
+      "user_gender": "boy",
+      "user_personality": "extrovert",
+      "id": 5
+    }
+  ],
+  "posts": [
+    {
+      "author_id": "1",
+      "author_name": "Allen",
+      "visibility": "private",
+      "post_title": "I'm allen. This is private.",
+      "post_content": "Only I can see this.",
+      "timestamp": "2022-10-12/6:56",
+      "id": 1
+    },
+    {
+      "author_id": "1",
+      "author_name": "Allen",
+      "visibility": "friends",
+      "post_title": "I'm allen. This is friends only.",
+      "post_content": "Only friends and I can see this.",
+      "timestamp": "2022-10-12/6:56",
+      "id": 2
+    },
+    {
+      "author_id": "1",
+      "author_name": "Allen",
+      "visibility": "everyone",
+      "post_title": "I'm Allen. This is public.",
+      "post_content": "Everyone can see this.",
+      "timestamp": "2022-10-12/6:56",
+      "id": 3
+    },
+    {
+      "author_id": "2",
+      "author_name": "Vegeta",
+      "visibility": "private",
+      "post_title": "Vegeta. Private",
+      "post_content": "This is private.",
+      "timestamp": "2022-10-12/6:56",
+      "id": 4
+    },
+    {
+      "author_id": "2",
+      "author_name": "Vegeta",
+      "visibility": "friends",
+      "post_title": "Vegeta. Friends.",
+      "post_content": "This is friends only.",
+      "timestamp": "2022-10-12/6:56",
+      "id": 5
+    },
+    {
+      "author_id": "2",
+      "author_name": "Vegeta",
+      "visibility": "everyone",
+      "post_title": "Vegeta. Everyone.",
+      "post_content": "Everyone can see this.",
+      "timestamp": "2022-10-12/6:56",
+      "id": 6
+    },
+    {
+      "author_id": "3",
+      "author_name": "Goku",
+      "visibility": "private",
+      "post_title": "Goku. Private",
+      "post_content": "Only me.",
+      "timestamp": "2022-10-12/6:56",
+      "id": 7
+    },
+    {
+      "author_id": "3",
+      "author_name": "Goku",
+      "visibility": "friends",
+      "post_title": "Goku. Friends.",
+      "post_content": "Only friends.",
+      "timestamp": "2022-10-12/6:56",
+      "id": 8
+    },
+    {
+      "author_id": "3",
+      "author_name": "Goku",
+      "visibility": "everyone",
+      "post_title": "Goku. Everyone.",
+      "post_content": "Anyone can see this.",
+      "timestamp": "2022-10-12/6:56",
+      "id": 9
+    }
+  ],
+  "friend_reqs": [
+    {
+      "receiver_id": "2",
+      "sender_id": "3",
+      "sender_name": "Goku",
+      "sender_msg": "Oh hey vegeta",
+      "id": 2
+    }
+  ],
+  "friend_lists": [
+    {
+      "owner_id": "1",
+      "friend_ids": [
+        "3"
+      ],
+      "id": 1
+    }
+  ]
+}
