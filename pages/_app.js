@@ -20,6 +20,8 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
 
+  console.log(showSmiley);
+
   return (
     <AuthContextProvider>
       <DBContextProvider>

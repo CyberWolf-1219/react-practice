@@ -271,6 +271,41 @@ async function addFriendHandler(userID, friendID) {
     );
     var jsonResData = await friendListUpdateResponse.json();
     console.log(jsonResData);
+
+    // SECOND STEP
+    const friendListResponse = await fetch(
+      `${DB_URI}/friend_lists?owner_id=${friendID}`
+    );
+    const jsonFriendListResData = await friendListResponse.json();
+    console.log(jsonFriendListResData);
+    const friendObj = jsonFriendListResData[0];
+    console.log(friendObj);
+
+    if (friendObj && friendObj.friend_ids.length > 0) {
+      const data = {
+        owner_id: userID,
+        friend_ids: [...friendObj.friend_ids, userID],
+      };
+
+      console.log(data);
+
+      var reqInit = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+
+      console.log(reqInit);
+
+      const friendListUpdateResponse = await fetch(
+        `${DB_URI}/friend_lists/${friendObj.id}`,
+        reqInit
+      );
+      var jsonResData = await friendListUpdateResponse.json();
+      console.log(jsonResData);
+    }
   } else {
     const data = {
       owner_id: userID,
@@ -316,7 +351,7 @@ async function getFriendsListHandler(userID) {
 
   console.log(`===================================================`);
 
-  if (jsonResData[0].friend_ids) {
+  if (jsonResData.length > 0 && jsonResData[0].friend_ids) {
     return jsonResData[0].friend_ids;
   } else {
     return [];

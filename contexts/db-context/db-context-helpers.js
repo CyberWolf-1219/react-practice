@@ -300,8 +300,10 @@ async function updateUserData(userName, userPassword, userEmail, userBio) {
     sessionStorage.userBio = jsonResData.user_bio;
     sessionStorage.userGender = jsonResData.user_gender;
     sessionStorage.userPersonality = jsonResData.user_personality;
+    alert("😋👍: Done!");
+  } else {
+    alert("😐: Something Went Wrong.");
   }
-  alert("😋👍: Done!");
 }
 
 export {
