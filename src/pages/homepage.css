@@ -1,0 +1,264 @@
+section#section_1 {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background-color: #FEF8E6;
+}
+
+section#section_1>span,
+section#section_1>div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+}
+
+section#section_1>span {
+    flex: 1;
+    text-align: left;
+
+}
+
+section#section_1>div {
+    position: relative;
+    flex: 2;
+    background-image: url("./../assets/images/hero_window.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+section#section_1>span h1 {
+    color: #000000;
+}
+
+section#section_1>span p {
+    font-size: 1.05rem;
+    margin-top: 2rem;
+
+}
+
+section#section_1>span button {
+    margin-top: 2rem;
+
+}
+
+section#section_1>div>img.hero_img {
+    position: absolute;
+    height: 100%;
+    object-fit: contain;
+    left: 50%;
+    transform: translate(-50%)
+}
+
+section#section_1>div>img.star {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+
+section#section_1>div>img.star.one {
+    left: 60%;
+    top: -10%;
+}
+
+section#section_1>div>img.star.two {
+    left: -10px;
+    top: 50%;
+}
+
+section#section_1>div>img.star.three {
+    right: 30%;
+    bottom: -10%;
+}
+
+section#section_1>div>span.section_1_prop {
+    position: absolute;
+    height: 12%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1.2rem;
+    border-radius: 25px;
+    font-weight: bold;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+section#section_1>div span img,
+section#section_1>div span b {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    font-size: 2rem;
+}
+
+section#section_1>div span p {
+    width: 100%;
+    text-overflow: ellipsis;
+    text-align: center;
+
+}
+
+section#section_1>div span.section_1_prop:nth-child(5) {
+    left: 0;
+    bottom: 20px;
+}
+
+section#section_1>div span.section_1_prop:nth-child(6) {
+    top: 15%;
+    right: 5%;
+}
+
+section#section_1>div span.section_1_prop:nth-child(7) {
+    bottom: 20%;
+    right: 0;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .section_1_prop p {
+        font-size: 0.9rem;
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    section#section_1 {
+        flex-direction: column;
+    }
+
+    section#section_1 span {
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+    }
+
+    section#section_1 span button {
+        position: absolute;
+        top: 45%;
+        left: 15%;
+    }
+
+    section#section_1 div span.section_1_prop {
+        /* width: 25%; */
+        height: 15%;
+    }
+}
+
+/* SECTION 02 STYLING */
+
+section#section_2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+section#section_2 span {
+    flex: 1;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+section#section_2 div#service_card_container {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: visible;
+
+}
+
+@media screen and (max-width: 1024px) {
+    section#section_2 span {
+        width: 100%;
+    }
+}
+
+/* SECTION 03 STYLING */
+
+section#section_3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #FEF8E6;
+
+}
+
+section#section_3 h2 {
+    flex: 1;
+}
+
+section#section_3 .carousel_container {
+    flex: 2;
+}
+
+@media screen and (max-width: 1024px) {
+    section#section_3 div.carousel_container {
+        flex: 2;
+    }
+}
+
+/* SECTION 04 STYLING */
+
+section#section_4 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+section#section_4 h2,
+section#section_4 p {
+    flex: 0.5;
+}
+
+section#section_4 .carousel_container {
+    flex: 3;
+}
+
+section#section_4 p {
+    width: 50%;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+
+section#section_4>img {
+    position: absolute;
+}
+
+section#section_4 .sprite_1 {
+    width: 25px;
+    height: 25px;
+    z-index: 1;
+}
+
+section#section_4 .sprite_2 {
+    width: 30px;
+    height: 30px;
+}
+
+section#section_4 #section_4_prop_1,
+section#section_4 #section_4_prop_3 {
+    left: 10%;
+    top: 30%;
+}
+
+section#section_4 #section_4_prop_2,
+section#section_4 #section_4_prop_4 {
+    right: 10%;
+    top: 1%;
+}
+
+@media screen and (max-width: 1024) {}
