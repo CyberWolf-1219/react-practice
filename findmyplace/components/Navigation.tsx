@@ -1,53 +1,35 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
+import logo from "./../assets/logo.png";
+import { FiCompass, FiBookmark, FiSettings, FiUser } from "react-icons/fi";
+import { IconContext } from "react-icons";
 
-function Navigation({ navState }: { navState: Boolean }) {
-  const navigation = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (!navState && navigation.current) {
-      navigation.current.classList.add("translate-x-full");
-    } else {
-      navigation.current?.classList.remove("translate-x-full");
-    }
-  });
-
+function Navigation() {
   return (
-    <nav
-      ref={navigation}
-      className={`fixed z-40 w-screen h-screen flex flex-col items-center justify-center transition-transform bg-emerald-500 text-gray-700 font-bold text-2xl lg:relative lg:h-fit lg:max-w-screen-xl lg:mx-auto lg:p-2 lg:-translate-x-0 lg:justify-between lg:flex-row`}
-    >
-      <img src="" alt="" />
-      <ul className="w-full lg:w-auto flex flex-col lg:flex-row items-center justify-start gap-4 lg:text-base">
-        <li className="p-3 hover:bg-emerald-500/75 hover:text-white rounded-lg transition-colors">
-          {" "}
-          NavLink{" "}
-        </li>
-        <li className="p-3 hover:bg-emerald-500/75 hover:text-white rounded-lg transition-colors">
-          {" "}
-          NavLink{" "}
-        </li>
-        <li className="p-3 hover:bg-emerald-500/75 hover:text-white rounded-lg transition-colors">
-          {" "}
-          NavLink{" "}
-        </li>
-        <li className="p-3 hover:bg-emerald-500/75 hover:text-white rounded-lg transition-colors">
-          {" "}
-          NavLink{" "}
-        </li>
-        <li className="p-3 hover:bg-emerald-500/75 hover:text-white rounded-lg transition-colors">
-          {" "}
-          NavLink{" "}
-        </li>
-        <li className="">
-          <button
-            type="submit"
-            className="p-3 rounded-lg text-emerald-500 bg-white"
-          >
-            Add One
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <IconContext.Provider value={{ color: "#cecece", size: "2rem" }}>
+      <nav className="w-full h-screen flex flex-col items-center justify-center gap-8">
+        <div className="w-12 h-12 rounded-full border-2 border-white">
+          <img src={logo.src} alt="" className="w-full h-full" />
+        </div>
+        <ul className="ml-[26%] flex flex-col items-start justify-start gap-4">
+          <li className="w-fit h-fit flex flex-row hover:scale-105">
+            <FiCompass />
+            <span className="ml-4 font-semibold text-lg">Discover</span>
+          </li>
+          <li className="w-fit h-fit flex flex-row hover:scale-105">
+            <FiBookmark />
+            <span className="ml-4 font-semibold text-lg">Bookmarked</span>
+          </li>
+          <li className="w-fit h-fit flex flex-row hover:scale-105">
+            <FiSettings />
+            <span className="ml-4 font-semibold text-lg">Settings</span>
+          </li>
+          <li className="w-fit h-fit flex flex-row hover:scale-105">
+            <FiUser />
+            <span className="ml-4 font-semibold text-lg">Profile</span>
+          </li>
+        </ul>
+      </nav>
+    </IconContext.Provider>
   );
 }
 

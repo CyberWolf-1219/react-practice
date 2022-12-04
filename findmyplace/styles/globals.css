@@ -10,6 +10,23 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  width: 4px;
+  height: 4px;
+  background-color: #cecece;
+}
+
+*::-webkit-scrollbar-thumb {
+  width: 4px;
+  height: 4px;
+  background-color: #838383;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -17,14 +34,24 @@ a {
 
 * {
   box-sizing: border-box;
+  scrollbar-width: thin;
 }
 
 label {
-  color: black;
+  color: rgb(20, 20, 20);
 }
 
-input {
+input,
+select {
   padding: 0.25rem;
+  background-color: #ffffff;
+  border: 2px solid #cecece;
+  border-radius: 0.25rem;
+}
+
+option {
+  border-radius: 0.25rem;
+  outline: none;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,6 +60,6 @@ input {
   }
   body {
     color: white;
-    background: #ffffff;
+    background: #e6e6e6;
   }
 }
