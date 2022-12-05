@@ -1,20 +1,42 @@
-import React from "react";
-import { FiMenu } from "react-icons/fi";
+import React, { useContext, useRef } from "react";
 
-function SearchPanel() {
+import { FiMenu } from "react-icons/fi";
+import { SearchContext } from "../contexts/SearchContext";
+
+function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
+  const searchContext = useContext(SearchContext);
+  const timeOut = useRef<NodeJS.Timeout | undefined>();
+
+  function search(event: React.ChangeEvent<HTMLInputElement>) {
+    if (timeOut.current) {
+      clearTimeout(timeOut.current);
+      timeOut.current = setTimeout(() => {
+        searchContext.search(event.target.value);
+      }, 1000);
+    } else {
+      timeOut.current = setTimeout(() => {
+        searchContext.search(event.target.value);
+      }, 1000);
+    }
+  }
+
   return (
-    <div className="absolute top-4 left-4 right-4 max-w-[80vw] h-fit mx-auto flex flex-col gap-2 bg-none z-[2]">
+    <form className="absolute top-4 left-4 right-4 max-w-[80vw] h-fit mx-auto flex flex-col gap-2 bg-none z-[2]">
       <div className="w-full h-fit p-2 flex flex-row items-center gap-3 shadow-md rounded-md bg-white">
         <FiMenu
           color="#cecece"
           size={"1.5rem"}
-          className="shrink-0 align-middle"
+          className="shrink-0 align-middle transition-transform hover:scale-125"
+          onClick={setNavVisibility}
         />
+
         <input
           type="text"
           name="address"
           id="address_input"
-          placeholder="State, City"
+          placeholder="City"
+          autoComplete="address-level1"
+          onChange={search}
           className="w-full peer"
         />
       </div>
@@ -39,7 +61,7 @@ function SearchPanel() {
           <option value="1000-2000">$4500 - $5000</option>
         </select>
       </div>
-    </div>
+    </form>
   );
 }
 

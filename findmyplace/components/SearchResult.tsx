@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Map from "./Map";
+import React, { useState, useContext } from "react";
 import dummyImage from "./../assets/dummy_home.jpg";
 import DetailTag from "./DetailTag";
 import {
@@ -7,15 +6,21 @@ import {
   BsStarFill,
   BsFillBookmarkCheckFill,
 } from "react-icons/bs";
+import { IoMdLocate } from "react-icons/io";
+import { AppMapContext } from "../contexts/MapContext";
 
 interface IDetails {
-  rating: number;
-  beds: number;
-  baths: number;
-  sqrFt: number;
+  property: {
+    rating: number;
+    beds: number;
+    baths: number;
+    sqrFt: number;
+  };
+  location: [number, number];
 }
 
 function SearchResult({ details }: { details: IDetails }) {
+  const mapContext = useContext(AppMapContext);
   const [bookMarkerd, setBookMarkerd] = useState<Boolean>(false);
 
   function bookmarkBtnHandler(event: React.MouseEvent) {
@@ -29,8 +34,12 @@ function SearchResult({ details }: { details: IDetails }) {
     <BsBookmarkPlus color="#cecece" size={"1.5rem"} />
   );
 
+  function invokeFly() {
+    mapContext.flyToLocation(details.location);
+  }
+
   return (
-    <div className="shrink-0 w-screen h-full flex flex-row snap-start">
+    <div className="shrink-0 w-screen h-full flex flex-row snap-start rounded-lg overflow-hidden bg-white">
       <img
         src={dummyImage.src}
         alt=""
@@ -44,22 +53,28 @@ function SearchResult({ details }: { details: IDetails }) {
 
         <div className="flex flex-wrap gap-2">
           <DetailTag>
-            <span>{details.rating}</span>
+            <span>{details.property.rating}</span>
             <BsStarFill />
           </DetailTag>
           <DetailTag>
-            <span>{details.beds}Bedrooms</span>
+            <span>{details.property.beds}Bedrooms</span>
           </DetailTag>
           <DetailTag>
-            <span>{details.baths} Baths</span>
+            <span>{details.property.baths} Baths</span>
           </DetailTag>
           <DetailTag>
-            <span>{details.sqrFt} Baths</span>
+            <span>{details.property.sqrFt} Baths</span>
           </DetailTag>
         </div>
 
-        <div className="absolute bottom-2">
+        <div className="absolute bottom-2 w-full pr-4 flex items-center justify-between">
           <b className="text-blue-600 font-bold text-lg">$4500/Month</b>
+          <span
+            className="w-fit h-fit p-1 bg-blue-600 rounded-full"
+            onClick={invokeFly}
+          >
+            <IoMdLocate size={"1.5rem"} color={"white"} />
+          </span>
         </div>
       </div>
     </div>
