@@ -7,15 +7,24 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
   const searchContext = useContext(SearchContext);
   const timeOut = useRef<NodeJS.Timeout | undefined>();
 
+  const propertyType = useRef<HTMLSelectElement>(null);
+  const priceRange = useRef<HTMLSelectElement>(null);
+
   function search(event: React.ChangeEvent<HTMLInputElement>) {
+    const city = event.target.value;
+    const type = parseInt(propertyType.current!.value);
+    const price = parseInt(priceRange.current!.value);
+
+    console.log(`SearchPanel: ${city} ${type} ${price}`);
+
     if (timeOut.current) {
       clearTimeout(timeOut.current);
       timeOut.current = setTimeout(() => {
-        searchContext.search(event.target.value);
+        searchContext.search({ city, type, price });
       }, 1000);
     } else {
       timeOut.current = setTimeout(() => {
-        searchContext.search(event.target.value);
+        searchContext.search({ city, type, price });
       }, 1000);
     }
   }
@@ -46,19 +55,21 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
           name="type"
           id="type_select"
           className="w-full h-fit p-2 shadow-md"
+          ref={propertyType}
         >
-          <option value="rent">Rental</option>
-          <option value="sale">Sale</option>
+          <option value="1">Rental</option>
+          <option value="2">Sale</option>
         </select>
         <select
           name="price_range"
           id="price_range_select"
           className="w-full h-fit p-2 shadow-md"
+          ref={priceRange}
         >
-          <option value="1000-2000">$1000 - $2000</option>
-          <option value="1000-2000">$2500 - $3000</option>
-          <option value="1000-2000">$3500 - $4000</option>
-          <option value="1000-2000">$4500 - $5000</option>
+          <option value="1">$1000 - $2000</option>
+          <option value="2">$2500 - $3000</option>
+          <option value="3">$3500 - $4000</option>
+          <option value="4">$4500 - $5000</option>
         </select>
       </div>
     </form>

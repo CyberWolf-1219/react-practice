@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import logo from "./../assets/logo.png";
+import { IconContext } from "react-icons";
+import { AuthContext } from "../contexts/AuthContext";
 import {
   FiCompass,
   FiBookmark,
   FiSettings,
   FiUser,
   FiMenu,
+  FiUserPlus,
+  FiLogIn,
+  FiLogOut,
 } from "react-icons/fi";
-import { IconContext } from "react-icons";
+import Link from "next/link";
+import SignUpBtn from "./SignUpBtn";
+import SignInBtn from "./SignInBtn";
+import LogOutBtn from "./LogOutBtn";
+import SignUpModal from "./SignUpForm";
+import SignInFormModal from "./SignInForm";
 
 function Navigation({
   visible,
@@ -16,6 +26,10 @@ function Navigation({
   visible: Boolean;
   setVisibility: () => void;
 }) {
+  const authContext = useContext(AuthContext);
+  const [signupVisible, setSignupVisible] = useState<Boolean>(false);
+  const [signinVisible, setsigninVisible] = useState<Boolean>(false);
+
   return (
     <IconContext.Provider value={{ color: "#cecece", size: "2rem" }}>
       <nav
@@ -32,29 +46,60 @@ function Navigation({
         <div className="w-12 h-12 rounded-full border-2 border-white">
           <img src={logo.src} alt="" className="w-full h-full" />
         </div>
-        <ul className="ml-[26%] flex flex-col items-start justify-start gap-4">
-          <li className="w-fit h-fit flex flex-row hover:scale-105 transition-transform">
-            <FiCompass />
-            <span
-              className="ml-4 font-semibold text-lg 
-            overflow-hidden"
-            >
-              Discover
+
+        <ul className="w-fit flex flex-col items-start justify-start gap-4">
+          <li className="w-fit h-fit hover:scale-105 transition-transform">
+            <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
+              <FiCompass />
+              <Link href={"#"}>Discover</Link>
             </span>
           </li>
-          <li className="w-fit h-fit flex flex-row hover:scale-105 transition-transform">
-            <FiBookmark />
-            <span className="ml-4 font-semibold text-lg">Bookmarked</span>
+          <li className="w-fit h-fit hover:scale-105 transition-transform">
+            <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
+              <FiBookmark />
+              <Link href={"#"}>Discover</Link>
+            </span>
           </li>
-          <li className="w-fit h-fit flex flex-row hover:scale-105 transition-transform">
-            <FiSettings />
-            <span className="ml-4 font-semibold text-lg">Settings</span>
+          <li className="w-fit h-fit hover:scale-105 transition-transform">
+            <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
+              <FiSettings />
+              <Link href={"#"}>Discover</Link>
+            </span>
           </li>
-          <li className="w-fit h-fit flex flex-row hover:scale-105 transition-transform">
-            <FiUser />
-            <span className="ml-4 font-semibold text-lg">Profile</span>
+          <li className="w-fit h-fit hover:scale-105 transition-transform">
+            <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
+              <FiUser />
+              <Link href={"#"}>Profile</Link>
+            </span>
           </li>
+          <li className="w-fit h-fit hover:scale-105 transition-transform">
+            <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
+              <FiUserPlus />
+              <SignUpBtn setSignup={setSignupVisible} />
+            </span>
+          </li>
+          {authContext.isLoggedIn ? (
+            <li className="w-fit h-fit hover:scale-105 transition-transform">
+              <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
+                <FiLogOut />
+                <LogOutBtn />
+              </span>
+            </li>
+          ) : (
+            <li className="w-fit h-fit hover:scale-105 transition-transform">
+              <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
+                <FiLogIn />
+                <SignInBtn setSignInFormState={setsigninVisible} />
+              </span>
+            </li>
+          )}
         </ul>
+        {signupVisible ? (
+          <SignUpModal setSignUpFormState={setSignupVisible} />
+        ) : null}
+        {signinVisible ? (
+          <SignInFormModal setSignInFormState={setsigninVisible} />
+        ) : null}
       </nav>
     </IconContext.Provider>
   );

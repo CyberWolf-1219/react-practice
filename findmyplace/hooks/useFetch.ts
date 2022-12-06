@@ -5,7 +5,7 @@ function useFetch(
   HEADERS: Object,
   setStateFunc: React.Dispatch<any>
 ) {
-  async function search(DATA: string) {
+  async function search<T>(DATA: {}) {
     console.log(`SEARCHING...`);
 
     const reqInit = {

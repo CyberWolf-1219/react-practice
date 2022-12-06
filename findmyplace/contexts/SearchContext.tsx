@@ -3,7 +3,7 @@ import useFetch from "../hooks/useFetch";
 
 const SearchContext = React.createContext({
   setSearchResultUpdateFunction: (setState: React.Dispatch<any>) => {},
-  search: (data: string) => {},
+  search: (data: { city: string; type: number; price: number }) => {},
 });
 
 function SearchContextProvider({
@@ -30,7 +30,11 @@ function SearchContextProvider({
     <SearchContext.Provider
       value={{
         setSearchResultUpdateFunction: setSearchResultUpdateFunction,
-        search: search as (data: string) => {},
+        search: search as (data: {
+          city: string;
+          type: number;
+          price: number;
+        }) => {},
       }}
     >
       {children}
