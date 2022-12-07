@@ -4,7 +4,10 @@ function Document() {
     <Html>
       <Head />
       <body>
-        <div id="portal" className="relative"></div>
+        <div
+          id="portal"
+          className="relative flex flex-col items-center justify-center"
+        ></div>
         <Main />
         <NextScript />
       </body>

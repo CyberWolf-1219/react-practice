@@ -14,11 +14,15 @@ function SearchResultPanel({ classList }: { classList: string }) {
     console.log(`SearchResultPanel:`, data);
   });
 
-  const content = data
-    ? data.propertyArray.map((Obj: IDummyDetails, index: number) => {
-        return <SearchResult key={index} details={Obj} />;
-      })
-    : "OOOPSY!";
+  const content = data ? (
+    data.propertyArray.map((Obj: IDummyDetails, index: number) => {
+      return <SearchResult key={index} details={Obj} />;
+    })
+  ) : (
+    <span className="w-full h-full flex flex-col justify-center text-white text-center font-bold text-2xl bg-blue-600 rounded-md">
+      Nothing Yet!
+    </span>
+  );
 
   return <div className={`${classList}`}>{content}</div>;
 }

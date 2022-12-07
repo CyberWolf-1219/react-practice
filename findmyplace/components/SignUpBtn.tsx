@@ -1,14 +1,12 @@
 import React from "react";
-import SignUpForm from "./SignUpForm";
+import { useRouter } from "next/router";
 
-function SignUpBtn({
-  setSignup,
-}: {
-  setSignup: React.Dispatch<React.SetStateAction<Boolean>>;
-}) {
+function SignUpBtn() {
+  const router = useRouter();
+
   function signUpBtnHanlder(event: React.MouseEvent) {
     event.preventDefault();
-    setSignup((prevState: Boolean) => !prevState);
+    router.push("/auth/signup");
   }
 
   return (

@@ -15,9 +15,7 @@ import {
 import Link from "next/link";
 import SignUpBtn from "./SignUpBtn";
 import SignInBtn from "./SignInBtn";
-import LogOutBtn from "./LogOutBtn";
-import SignUpModal from "./SignUpForm";
-import SignInFormModal from "./SignInForm";
+import SignOutBtn from "./SignOutBtn";
 
 function Navigation({
   visible,
@@ -27,8 +25,6 @@ function Navigation({
   setVisibility: () => void;
 }) {
   const authContext = useContext(AuthContext);
-  const [signupVisible, setSignupVisible] = useState<Boolean>(false);
-  const [signinVisible, setsigninVisible] = useState<Boolean>(false);
 
   return (
     <IconContext.Provider value={{ color: "#cecece", size: "2rem" }}>
@@ -66,40 +62,39 @@ function Navigation({
               <Link href={"#"}>Discover</Link>
             </span>
           </li>
-          <li className="w-fit h-fit hover:scale-105 transition-transform">
-            <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
-              <FiUser />
-              <Link href={"#"}>Profile</Link>
-            </span>
-          </li>
-          <li className="w-fit h-fit hover:scale-105 transition-transform">
-            <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
-              <FiUserPlus />
-              <SignUpBtn setSignup={setSignupVisible} />
-            </span>
-          </li>
-          {authContext.isLoggedIn ? (
+          {authContext.data ? (
+            <li className="w-fit h-fit hover:scale-105 transition-transform">
+              <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
+                <FiUser />
+                <Link href={"#"}>Profile</Link>
+              </span>
+            </li>
+          ) : null}
+
+          {authContext.data ? (
+            <li className="w-fit h-fit hover:scale-105 transition-transform">
+              <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
+                <FiUserPlus />
+                <SignUpBtn />
+              </span>
+            </li>
+          ) : null}
+          {authContext.data ? (
             <li className="w-fit h-fit hover:scale-105 transition-transform">
               <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
                 <FiLogOut />
-                <LogOutBtn />
+                <SignOutBtn />
               </span>
             </li>
           ) : (
             <li className="w-fit h-fit hover:scale-105 transition-transform">
               <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
                 <FiLogIn />
-                <SignInBtn setSignInFormState={setsigninVisible} />
+                <SignInBtn />
               </span>
             </li>
           )}
         </ul>
-        {signupVisible ? (
-          <SignUpModal setSignUpFormState={setSignupVisible} />
-        ) : null}
-        {signinVisible ? (
-          <SignInFormModal setSignInFormState={setsigninVisible} />
-        ) : null}
       </nav>
     </IconContext.Provider>
   );

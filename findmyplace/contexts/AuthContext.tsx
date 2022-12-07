@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
+import React from "react";
+import useFetch from "../hooks/useFetch";
+import { IAuthContext } from "../interfaces/all";
 
-type AuthData = { userName: string; password: string };
-
-interface IAuthContext {
-  isLoggedIn: Boolean;
-  signup: Function;
-  login: Function;
-  logout: Function;
-}
+type AuthData = { email: string; password: string };
+type SignUpData = {
+  email: string;
+  password: string;
+  userType: string;
+  userSubType: string;
+};
 
 const AuthContext = React.createContext<IAuthContext>({
-  isLoggedIn: false,
+  data: null,
+  status: "",
   signup: () => {},
-  login: () => {},
-  logout: () => {},
+  signin: () => {},
+  signout: () => {},
 });
 
 function AuthContextProvider({
@@ -21,14 +24,36 @@ function AuthContextProvider({
 }: {
   children: React.ReactElement | React.ReactElement[];
 }) {
-  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
+  const { data, status } = useSession();
 
-  function signup(data: AuthData) {}
-  function login(data: AuthData) {}
-  function logout() {}
+  const [executeSignUp] = useFetch("/api/auth/signup", {
+    "Content-Type": "application/json",
+  });
+
+  function signup(data: SignUpData) {
+    return executeSignUp(data);
+  }
+
+  async function signin(data: AuthData) {
+    const signInResult = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
+
+    if (signInResult?.error) {
+      return { loggedIn: false };
+    } else {
+      return { loggedIn: true };
+    }
+  }
+
+  async function signout(data: { authToken: string }) {
+    const signOutResult = await signOut();
+  }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, signup, login, logout }}>
+    <AuthContext.Provider value={{ data, status, signup, signin, signout }}>
       {children}
     </AuthContext.Provider>
   );

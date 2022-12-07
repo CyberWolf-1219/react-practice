@@ -1,12 +1,14 @@
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
-import React from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
-function SignInBtn() {
+function SignOutBtn() {
   const router = useRouter();
+  const authContext = useContext(AuthContext);
 
   function btnClickHandler(event: React.MouseEvent) {
     event.preventDefault();
-    router.push("/auth/signin");
+    authContext.signout();
   }
 
   return (
@@ -14,9 +16,9 @@ function SignInBtn() {
       onClick={btnClickHandler}
       className="flex flex-row items-center justify-center font-bold text-lg bg-none"
     >
-      SignIn
+      SignOut
     </button>
   );
 }
 
-export default SignInBtn;
+export default SignOutBtn;

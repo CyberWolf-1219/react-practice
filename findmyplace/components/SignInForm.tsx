@@ -1,30 +1,41 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { GrClose } from "react-icons/gr";
+import { useRouter } from "next/router";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import PopupModal from "./PopupModal";
 
-function SignInForm({
-  setSignInFormState,
-}: {
-  setSignInFormState: React.Dispatch<React.SetStateAction<Boolean>>;
-}) {
-  function closeBtnHandler(event: React.MouseEvent) {
-    event.preventDefault();
-    setSignInFormState((prevState: Boolean) => !prevState);
-  }
+function SignInForm() {
+  const authContext = useContext(AuthContext);
+  const [msg, setMsg] = useState<string | null>(null);
+  const router = useRouter();
 
-  function signup(event: React.FormEvent<HTMLFormElement>) {
+  async function signinHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(event);
+    const email = event.currentTarget.elements.email.value;
+    const password = event.currentTarget.elements.password.value;
+
+    const signInResult = await authContext.signin({
+      email: email,
+      password: password,
+    });
+
+    if (signInResult.loggedIn) {
+      setMsg("Logged In!");
+      setTimeout(() => {
+        setMsg(null);
+        router.push("/");
+      }, 2000);
+    } else {
+      setMsg("Logging In Failed!");
+      setTimeout(() => {
+        setMsg(null);
+      }, 2000);
+    }
   }
 
   return (
-    <div className="absolute z-20 top-0 -left-full w-full h-screen transition-translate translate-x-full flex flex-col items-center justify-center backdrop-blur-md">
-      <GrClose
-        onClick={closeBtnHandler}
-        className="absolute top-4 right-4 hover:cursor-pointer"
-      />
+    <div className="absolute z-20 top-0 -left-full w-full h-screen transition-transform translate-x-full flex flex-col items-center justify-center backdrop-blur-md">
       <form
-        onSubmit={signup}
+        onSubmit={signinHandler}
         className="w-fit h-fit flex flex-col items-start justify-start font-semibold text-base"
       >
         <h2 className="w-full font-bold text-2xl text-center">Sign In</h2>
@@ -38,23 +49,9 @@ function SignInForm({
           className="w-full mt-4 transition-colors bg-white/70 hover:bg-blue-600/70 hover:text-white"
         />
       </form>
+      {msg ? <PopupModal title="Sign In" msg={msg} /> : null}
     </div>
   );
 }
 
-function SignInFormModal({
-  setSignInFormState,
-}: {
-  setSignInFormState: React.Dispatch<React.SetStateAction<Boolean>>;
-}) {
-  return (
-    <>
-      {ReactDOM.createPortal(
-        <SignInForm setSignInFormState={setSignInFormState} />,
-        document.getElementById("portal")!
-      )}
-    </>
-  );
-}
-
-export default SignInFormModal;
+export default SignInForm;

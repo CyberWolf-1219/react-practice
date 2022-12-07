@@ -1,12 +1,8 @@
 import React from "react";
 
-function useFetch(
-  URL: string,
-  HEADERS: Object,
-  setStateFunc: React.Dispatch<any>
-) {
-  async function search<T>(DATA: {}) {
-    console.log(`SEARCHING...`);
+function useFetch(URL: string, HEADERS: Object) {
+  async function execute(DATA: any) {
+    console.log(`Executing...`);
 
     const reqInit = {
       method: "POST",
@@ -16,16 +12,16 @@ function useFetch(
 
     try {
       const fetchResult = await fetch(URL, reqInit as RequestInit);
+      console.log(`UseFetch:`, fetchResult);
       const jsonDecoded = await fetchResult.json();
       console.log(`UseFetch:`, jsonDecoded);
-      console.log(`UPDATING DATA STATE...`);
-      setStateFunc(jsonDecoded);
+      return jsonDecoded;
     } catch (error) {
       console.error(`THIS WAS NOT SUPPOSED TO HAPPEN: ${error}`);
     }
   }
 
-  return [search];
+  return [execute];
 }
 
 export default useFetch;
