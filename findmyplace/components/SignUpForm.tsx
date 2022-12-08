@@ -4,14 +4,14 @@ import { useRouter } from "next/router";
 import { AuthContext } from "../contexts/AuthContext";
 import { userObj } from "../types/types";
 import PopupModal from "./PopupModal";
-import { signIn } from "next-auth/react";
 
 function SignUpForm() {
   const router = useRouter();
   const authContext = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("1");
+  const [userType, setUserType] = useState<string | null>(null);
   const [userSubType, setUserSubType] = useState<string | null>(null);
   const [signupResult, setSignupResult] = useState<string | null>();
 
@@ -23,10 +23,20 @@ function SignUpForm() {
       userType: userType,
       userSubType: userSubType,
     };
-    if (userData.email.length <= 0 || userData.password.length <= 5) {
-      alert("Need A Valid Email and A Password Longer Than 5 Characters.");
+
+    if (
+      userData.email.length <= 0 ||
+      userData.password.length <= 5 ||
+      userType == "" ||
+      userType == null
+    ) {
+      setSignupResult(
+        "Need a valid email and a password longer than 5 characters."
+      );
+      setTimeout(() => {
+        setSignupResult(null);
+      }, 1500);
     } else {
-      const signinResult = await signIn("credentials", userData);
       const result = await authContext.signup(userData);
       setSignupResult(result.msg);
       setTimeout(() => {
@@ -87,7 +97,9 @@ function SignUpForm() {
           name="user_type"
           id="user_type_input"
           className="w-full p-2"
+          defaultValue={""}
         >
+          <option>Choose A Type</option>
           <option value="1">Scouter</option>
           <option value="2">Presenter</option>
         </select>
@@ -99,13 +111,14 @@ function SignUpForm() {
               name="user_subtype"
               id="user_subtype_input"
               className="w-full p-2"
+              defaultValue={""}
             >
+              <option>Choose A Type</option>
               <option value="1">Individual</option>
               <option value="2">Organization</option>
             </select>
           </>
         ) : null}
-
         <input
           type="submit"
           value="Sign Up"

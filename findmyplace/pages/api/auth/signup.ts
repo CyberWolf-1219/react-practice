@@ -10,7 +10,7 @@ async function signUpHandler(req: NextApiRequest, res: NextApiResponse) {
     res.json({ status: 1, msg: "This email is registered!" });
   } else {
     const signUpResult = await addUser(userSignUpData);
-    console.log(signUpResult);
+    console.log(`SignUpResult: `, signUpResult);
     res.json({ status: 0, msg: "Registration Successful" });
   }
 }

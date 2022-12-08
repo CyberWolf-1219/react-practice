@@ -27,4 +27,6 @@ export interface IUserValidityResult {
   valid: Boolean;
   id: string;
   email: string;
+  userType: string;
+  userSubType: string;
 }

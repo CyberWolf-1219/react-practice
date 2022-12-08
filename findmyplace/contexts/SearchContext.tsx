@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
 import useFetch from "../hooks/useFetch";
+import { SearchData } from "../types/types";
 
 const SearchContext = React.createContext({
-  setSearchResultUpdateFunction: (setState: React.Dispatch<any>) => {},
-  search: (data: { city: string; type: number; price: number }) => {},
+  search: (data: SearchData) => {},
+  setResultUpdateFunc: (setStateFunc: React.SetStateAction<any>) => {},
 });
 
 function SearchContextProvider({
@@ -11,32 +12,22 @@ function SearchContextProvider({
 }: {
   children: React.ReactElement | React.ReactElement[];
 }) {
-  const searchResultSetter = useRef<React.Dispatch<any>>();
+  const [execute] = useFetch("api/listings", {
+    "Content-Type": "application/json",
+  });
+  const resultUpdateFunc = useRef<React.SetStateAction<any> | null>(null);
 
-  const [search] = useFetch(
-    "api/listings",
-    { "Content-Type": "application/json" },
-    searchResultSetter.current!
-  );
+  async function search(DATA: any) {
+    const searchResult = await execute(DATA);
+    resultUpdateFunc.current(searchResult);
+  }
 
-  function setSearchResultUpdateFunction(
-    setDataState: React.SetStateAction<any>
-  ) {
-    console.log(`SearchContext: SETTING DATA STATE UPDATE FUNCTION`);
-    searchResultSetter.current = setDataState;
+  function setResultUpdateFunc(setStateFunc: React.SetStateAction<any>) {
+    resultUpdateFunc.current = setStateFunc;
   }
 
   return (
-    <SearchContext.Provider
-      value={{
-        setSearchResultUpdateFunction: setSearchResultUpdateFunction,
-        search: search as (data: {
-          city: string;
-          type: number;
-          price: number;
-        }) => {},
-      }}
-    >
+    <SearchContext.Provider value={{ search, setResultUpdateFunc }}>
       {children}
     </SearchContext.Provider>
   );

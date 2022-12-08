@@ -1,14 +1,47 @@
-import React from "react";
+import { GetServerSidePropsContext } from "next";
+import { getSession } from "next-auth/react";
+import React, { useContext, useState } from "react";
+import BookMarksPanel from "../../components/BookMarksPanel";
+import Navigation from "../../components/Navigation";
+import NavigationBtn from "../../components/NavigationBtn";
+import PropertyAddForm from "../../components/PropertyAddForm";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function UserProfilePage() {
+  const authContext = useContext(AuthContext);
+  const [navVisible, setNavVisible] = useState<Boolean>(false);
+
+  function invertNavState() {
+    setNavVisible((prevState: Boolean) => !prevState);
+  }
+
   return (
-    <main className="p-8 flex flex-col gap-8 items-center justify-start">
-      <h2 className="w-full h-fit text-center font-bold text-2xl">
-        Your Bookmarks!
-      </h2>
-      <div className="w-full h-screen overflow-y-auto overflow-x-hidden bg-white rounded-lg border-2 border-slate-300"></div>
+    <main>
+      <NavigationBtn setVisibility={invertNavState} />
+      <Navigation visible={navVisible} setVisibility={invertNavState} />
+      {authContext!.data!.user!.type == "1" ? (
+        <BookMarksPanel />
+      ) : (
+        <PropertyAddForm />
+      )}
     </main>
   );
 }
 
 export default UserProfilePage;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession({ req: context.req });
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  } else {
+    return {
+      props: {},
+    };
+  }
+}

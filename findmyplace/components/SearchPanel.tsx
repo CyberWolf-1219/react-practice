@@ -6,14 +6,13 @@ import { SearchContext } from "../contexts/SearchContext";
 function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
   const searchContext = useContext(SearchContext);
   const timeOut = useRef<NodeJS.Timeout | undefined>();
-
   const propertyType = useRef<HTMLSelectElement>(null);
   const priceRange = useRef<HTMLSelectElement>(null);
 
   function search(event: React.ChangeEvent<HTMLInputElement>) {
     const city = event.target.value;
-    const type = parseInt(propertyType.current!.value);
-    const price = parseInt(priceRange.current!.value);
+    const type = propertyType.current!.value;
+    const price = priceRange.current!.value;
 
     console.log(`SearchPanel: ${city} ${type} ${price}`);
 

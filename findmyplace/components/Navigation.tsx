@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import logo from "./../assets/logo.png";
 import { IconContext } from "react-icons";
 import { AuthContext } from "../contexts/AuthContext";
@@ -16,13 +16,14 @@ import Link from "next/link";
 import SignUpBtn from "./SignUpBtn";
 import SignInBtn from "./SignInBtn";
 import SignOutBtn from "./SignOutBtn";
+import NavigationBtn from "./NavigationBtn";
 
 function Navigation({
   visible,
   setVisibility,
 }: {
   visible: Boolean;
-  setVisibility: () => void;
+  setVisibility: Function;
 }) {
   const authContext = useContext(AuthContext);
 
@@ -33,12 +34,7 @@ function Navigation({
           !visible ? "-translate-x-full" : "translate-x-0"
         }`}
       >
-        <FiMenu
-          color="#cecece"
-          size={"1.5rem"}
-          className="absolute top-4 right-4 shrink-0 align-middle transition-transform hover:scale-125"
-          onClick={setVisibility}
-        />
+        <NavigationBtn setVisibility={setVisibility} />
         <div className="w-12 h-12 rounded-full border-2 border-white">
           <img src={logo.src} alt="" className="w-full h-full" />
         </div>
@@ -66,12 +62,11 @@ function Navigation({
             <li className="w-fit h-fit hover:scale-105 transition-transform">
               <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
                 <FiUser />
-                <Link href={"#"}>Profile</Link>
+                <Link href={"/user"}>Profile</Link>
               </span>
             </li>
           ) : null}
-
-          {authContext.data ? (
+          {!authContext.data ? (
             <li className="w-fit h-fit hover:scale-105 transition-transform">
               <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
                 <FiUserPlus />

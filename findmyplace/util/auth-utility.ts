@@ -7,12 +7,18 @@ export async function checkUserValidity(
 ): Promise<IUserValidityResult> {
   const userObj = await getUser(userEmail);
   if (!userObj) {
-    return { valid: false, id: "", email: "" };
+    return { valid: false, id: "", email: "", userType: "", userSubType: "" };
   }
 
   if (userObj.data.password !== userPassword) {
-    return { valid: false, id: "", email: "" };
+    return { valid: false, id: "", email: "", userType: "", userSubType: "" };
   }
 
-  return { valid: true, id: userObj.id, email: userObj.data.email };
+  return {
+    valid: true,
+    id: userObj.id,
+    email: userObj.data.email,
+    userType: userObj.data.userType,
+    userSubType: userObj.data.userSubType,
+  };
 }

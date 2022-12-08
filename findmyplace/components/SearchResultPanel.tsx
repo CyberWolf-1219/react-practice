@@ -9,7 +9,7 @@ function SearchResultPanel({ classList }: { classList: string }) {
     propertyArray: Array<any>;
   }>();
   const searchContext = useContext(SearchContext);
-  searchContext.setSearchResultUpdateFunction(setData!);
+  searchContext.setResultUpdateFunc(setData!);
   useEffect(() => {
     console.log(`SearchResultPanel:`, data);
   });
