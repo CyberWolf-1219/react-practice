@@ -6,24 +6,27 @@ import { SearchContext } from "../contexts/SearchContext";
 function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
   const searchContext = useContext(SearchContext);
   const timeOut = useRef<NodeJS.Timeout | undefined>();
-  const propertyType = useRef<HTMLSelectElement>(null);
-  const priceRange = useRef<HTMLSelectElement>(null);
+  const countryInput = useRef<HTMLInputElement>(null);
+  const cityInput = useRef<HTMLInputElement>(null);
+  const propertyTypeInput = useRef<HTMLSelectElement>(null);
+  const priceRangeInput = useRef<HTMLSelectElement>(null);
 
   function search(event: React.ChangeEvent<HTMLInputElement>) {
-    const city = event.target.value;
-    const type = propertyType.current!.value;
-    const price = priceRange.current!.value;
+    const country = countryInput.current!.value;
+    const city = cityInput.current!.value;
+    const type = propertyTypeInput.current!.value;
+    const price = priceRangeInput.current!.value;
 
-    console.log(`SearchPanel: ${city} ${type} ${price}`);
+    console.log(`SearchPanel: ${country} ${city} ${type} ${price}`);
 
     if (timeOut.current) {
       clearTimeout(timeOut.current);
       timeOut.current = setTimeout(() => {
-        searchContext.search({ city, type, price });
+        searchContext.search({ country, city, type, price });
       }, 1000);
     } else {
       timeOut.current = setTimeout(() => {
-        searchContext.search({ city, type, price });
+        searchContext.search({ country, city, type, price });
       }, 1000);
     }
   }
@@ -39,11 +42,22 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
         />
 
         <input
+          ref={countryInput}
           type="text"
-          name="address"
-          id="address_input"
-          placeholder="City"
-          autoComplete="address-level1"
+          name="country"
+          id="country_input"
+          placeholder="Country"
+          autoComplete=""
+          onChange={search}
+          className="w-full peer"
+        />
+        <input
+          ref={cityInput}
+          type="text"
+          name="cityInput"
+          id="cityInput_input"
+          placeholder="CityInput"
+          autoComplete=""
           onChange={search}
           className="w-full peer"
         />
@@ -51,20 +65,24 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
 
       <div className="w-full h-fit p-1 flex flex-col gap-2 overflow-hidden">
         <select
+          ref={propertyTypeInput}
           name="type"
           id="type_select"
           className="w-full h-fit p-2 shadow-md"
-          ref={propertyType}
+          defaultValue={""}
         >
+          <option value="">Select A Property Type</option>
           <option value="1">Rental</option>
           <option value="2">Sale</option>
         </select>
         <select
+          ref={priceRangeInput}
           name="price_range"
           id="price_range_select"
           className="w-full h-fit p-2 shadow-md"
-          ref={priceRange}
+          defaultValue={""}
         >
+          <option value="">Select A Price Range</option>
           <option value="1">$1000 - $2000</option>
           <option value="2">$2500 - $3000</option>
           <option value="3">$3500 - $4000</option>

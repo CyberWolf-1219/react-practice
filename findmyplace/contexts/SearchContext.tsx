@@ -12,7 +12,7 @@ function SearchContextProvider({
 }: {
   children: React.ReactElement | React.ReactElement[];
 }) {
-  const [execute] = useFetch("api/listings", {
+  const [execute] = useFetch("api/listings/listings", {
     "Content-Type": "application/json",
   });
   const resultUpdateFunc = useRef<React.SetStateAction<any> | null>(null);

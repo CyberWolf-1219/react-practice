@@ -10,8 +10,13 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { stringify } from "querystring";
-import { userObj } from "../types/types";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadString,
+} from "firebase/storage";
+import { PropertyData, userObj } from "../types/types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCXv-fBTT_5mfRO9aziM7P-GU1x365PgZE",
@@ -28,8 +33,24 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firestore
 const db = getFirestore();
 const usersCollection = collection(db, "users");
+const propertiesCollection = collection(db, "properties");
+const storage = getStorage(app);
 
 // Functions
+export async function uploadImage(imageName: string, data: any) {
+  const imageRef = ref(storage, `images/${imageName}`);
+
+  const uploadResult = await uploadString(imageRef, data, "data_url");
+  console.log(`=================================================`);
+  console.log(uploadResult.ref.toString());
+  console.log(`=================================================`);
+  const fileUrl = await getDownloadURL(uploadResult.ref);
+  return {
+    filePath: fileUrl,
+  };
+}
+
+// USER COLLECTION
 export async function checkUserExistence(userEmail: string) {
   const q = query(usersCollection, where("email", "==", userEmail));
   const queryResult = await getDocs(q);
@@ -64,3 +85,20 @@ export async function removeUser(userId: string) {
   const docRef = doc(db, "users", userId);
   const result = await deleteDoc(docRef);
 }
+
+// PROPERTY COLLECTION
+export async function addProperty(data: PropertyData) {
+  const result = await addDoc(propertiesCollection, data);
+  console.log(result);
+  return result;
+}
+
+export async function getListings() {
+  const allListings = await getDocs(propertiesCollection);
+  allListings.forEach((property) => {
+    console.log(`Property: `, property.id, property.data());
+  });
+}
+
+export async function getPropertyDetails(propertyId: string) {}
+export async function deleteProperty(propertyId: string) {}

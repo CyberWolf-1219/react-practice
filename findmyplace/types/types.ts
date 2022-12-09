@@ -13,7 +13,19 @@ export type authObj = {
 };
 
 export type SearchData = {
+  country: string;
   city: string;
   type: string;
   price: string;
+};
+
+export type PropertyData = {
+  providerId: string;
+  country: string;
+  city: string;
+  propertyType: string;
+  bedrooms: number;
+  bathrooms: number;
+  pricePerMonth: number;
+  propertyImage?: string | null;
 };
