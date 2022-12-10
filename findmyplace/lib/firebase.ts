@@ -5,6 +5,7 @@ import {
   deleteDoc,
   doc,
   DocumentData,
+  getDocFromServer,
   getDocs,
   getFirestore,
   query,
@@ -34,6 +35,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 const usersCollection = collection(db, "users");
 const propertiesCollection = collection(db, "properties");
+const geolocationsCollection = collection(db, "geolocations");
+
 const storage = getStorage(app);
 
 // Functions
@@ -102,3 +105,22 @@ export async function getListings() {
 
 export async function getPropertyDetails(propertyId: string) {}
 export async function deleteProperty(propertyId: string) {}
+
+// GEOLOCATION COLLECION
+export async function getCities(data: string) {
+  const q = query(geolocationsCollection, where("country", "==", data));
+
+  console.log("FETCHING...");
+  const queryResult = await getDocs(q);
+
+  const cities: Array<object> = [];
+  queryResult.forEach((doc) => {
+    cities.push({
+      id: doc.id,
+      cityName: doc.data().city,
+      lng: doc.data().lng,
+      lat: doc.data().lat,
+    });
+  });
+  return cities;
+}

@@ -7,7 +7,7 @@ function ListingReqHandler(req: NextApiRequest, res: NextApiResponse) {
 
   const propertyArray: Array<PropertyData> = [];
 
-  getListings();
+  // getListings();
 
   res.status(200).json({ status: "OK", propertyArray });
 }

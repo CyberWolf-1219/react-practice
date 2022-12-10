@@ -1,17 +1,25 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
+import { v4 } from "uuid";
 
 import { FiMenu } from "react-icons/fi";
 import { SearchContext } from "../contexts/SearchContext";
+import { countries } from "../data/countries";
 
 function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
+  //=====================================================================
   const searchContext = useContext(SearchContext);
-  const timeOut = useRef<NodeJS.Timeout | undefined>();
+  const timeout_1 = useRef<NodeJS.Timeout | undefined>();
+  const timeout_2 = useRef<NodeJS.Timeout | undefined>();
+
   const countryInput = useRef<HTMLInputElement>(null);
   const cityInput = useRef<HTMLInputElement>(null);
   const propertyTypeInput = useRef<HTMLSelectElement>(null);
   const priceRangeInput = useRef<HTMLSelectElement>(null);
+  const [cities, setCities] = useState<Array<any>>([]);
+  //=====================================================================
 
-  function search(event: React.ChangeEvent<HTMLInputElement>) {
+  function search() {
+    console.log(`SEARCHING FOR PROPERTIES...`);
     const country = countryInput.current!.value;
     const city = cityInput.current!.value;
     const type = propertyTypeInput.current!.value;
@@ -19,20 +27,76 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
 
     console.log(`SearchPanel: ${country} ${city} ${type} ${price}`);
 
-    if (timeOut.current) {
-      clearTimeout(timeOut.current);
-      timeOut.current = setTimeout(() => {
-        searchContext.search({ country, city, type, price });
+    if (timeout_1.current) {
+      clearTimeout(timeout_1.current);
+    }
+
+    timeout_1.current = setTimeout(() => {
+      searchContext.search({ country, city, type, price });
+    }, 1000);
+  }
+
+  function getSuggestions(event: React.ChangeEvent<HTMLInputElement>) {
+    console.log(`PULLING SUGGESTION...`);
+    // ONLY TO TRIGGER ON CITY INPUT CHANGE
+    if (event.target.name == "country") {
+      const countryName = event.target.value;
+
+      // ELIMINATE REDUNDENT FETCHS
+      if (timeout_2.current) {
+        clearTimeout(timeout_2.current);
+      }
+
+      timeout_2.current = setTimeout(async () => {
+        const citySuggestions: {
+          status: string;
+          suggestions: [
+            { id: string; cityName: string; lng: number; lat: number }
+          ];
+        } = await searchContext.getSuggestions({
+          country: countryName,
+        });
+        console.log(`CITIES: `, citySuggestions);
+        setCities(citySuggestions.suggestions);
       }, 1000);
+    }
+  }
+
+  function onChangeHandler(
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) {
+    const country = countryInput.current!.value;
+    const city = cityInput.current!.value;
+    const type = propertyTypeInput.current!.value;
+    const price = priceRangeInput.current!.value;
+    if (country !== "" && city !== "" && type !== "" && price !== "") {
+      search();
     } else {
-      timeOut.current = setTimeout(() => {
-        searchContext.search({ country, city, type, price });
-      }, 1000);
+      getSuggestions(event as React.ChangeEvent<HTMLInputElement>);
     }
   }
 
   return (
     <form className="absolute top-4 left-4 right-4 max-w-[80vw] h-fit mx-auto flex flex-col gap-2 bg-none z-[2]">
+      <datalist id="countries">
+        {countries.map((countryName, index) => {
+          return (
+            <option key={`${index}_${v4()}`} value={countryName}>
+              {countryName}
+            </option>
+          );
+        })}
+      </datalist>
+      <datalist id="cities">
+        {cities.map((cityObj, index) => {
+          return (
+            <option key={`${cityObj.id}}`} value={cityObj.cityName}>
+              {cityObj.cityName}
+            </option>
+          );
+        })}
+      </datalist>
+
       <div className="w-full h-fit p-2 flex flex-row items-center gap-3 shadow-md rounded-md bg-white">
         <FiMenu
           color="#cecece"
@@ -47,19 +111,19 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
           name="country"
           id="country_input"
           placeholder="Country"
-          autoComplete=""
-          onChange={search}
+          list="countries"
           className="w-full peer"
+          onChange={onChangeHandler}
         />
         <input
           ref={cityInput}
           type="text"
-          name="cityInput"
-          id="cityInput_input"
-          placeholder="CityInput"
+          name="city"
+          id="city_input"
+          placeholder="City"
           autoComplete=""
-          onChange={search}
           className="w-full peer"
+          list="cities"
         />
       </div>
 
@@ -70,6 +134,7 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
           id="type_select"
           className="w-full h-fit p-2 shadow-md"
           defaultValue={""}
+          onChange={onChangeHandler}
         >
           <option value="">Select A Property Type</option>
           <option value="1">Rental</option>
@@ -81,6 +146,7 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
           id="price_range_select"
           className="w-full h-fit p-2 shadow-md"
           defaultValue={""}
+          onChange={onChangeHandler}
         >
           <option value="">Select A Price Range</option>
           <option value="1">$1000 - $2000</option>
