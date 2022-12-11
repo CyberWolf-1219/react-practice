@@ -26,7 +26,7 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
     const country = countryInput.current!.value;
     const city = cityInput.current!.value;
     const type = propertyTypeInput.current!.value;
-    const price = priceRangeInput.current!.value;
+    const price = parseInt(priceRangeInput.current!.value);
 
     console.log(`SearchPanel: ${country} ${city} ${type} ${price}`);
 
@@ -172,10 +172,11 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
           onChange={onChangeHandler}
         >
           <option value="">Select A Price Range</option>
-          <option value="1">$1000 - $2000</option>
-          <option value="2">$2500 - $3000</option>
-          <option value="3">$3500 - $4000</option>
-          <option value="4">$4500 - $5000</option>
+          <option value="1000">$1000</option>
+          <option value="2000">$2000</option>
+          <option value="3000">$3000</option>
+          <option value="4000">$4000</option>
+          <option value="5000">$5000</option>
         </select>
       </div>
     </form>

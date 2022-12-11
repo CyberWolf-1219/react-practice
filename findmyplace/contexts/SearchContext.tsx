@@ -16,16 +16,15 @@ function SearchContextProvider({
   const [Search] = useFetch("api/listings/listings", {
     "Content-Type": "application/json",
   });
-
   const [GetSuggestions] = useFetch("api/input-suggestions", {
     "Content-Type": "application/json",
   });
-
   const resultUpdateFunc = useRef<React.SetStateAction<any> | null>(null);
 
   async function search(DATA: any) {
     const searchResult = await Search(DATA);
-    resultUpdateFunc.current(searchResult);
+    console.log(`LISTING PULL RESULT: `, searchResult);
+    resultUpdateFunc.current(searchResult.propertyArray);
   }
 
   function setResultUpdateFunc(setStateFunc: React.SetStateAction<any>) {

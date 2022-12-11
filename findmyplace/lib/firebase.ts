@@ -17,7 +17,7 @@ import {
   ref,
   uploadString,
 } from "firebase/storage";
-import { PropertyData, userObj } from "../types/types";
+import { PropertyData, SearchData, userObj } from "../types/types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCXv-fBTT_5mfRO9aziM7P-GU1x365PgZE",
@@ -96,11 +96,22 @@ export async function addProperty(data: PropertyData) {
   return result;
 }
 
-export async function getListings() {
-  const allListings = await getDocs(propertiesCollection);
+export async function getListings(data: SearchData) {
+  const properties: Array<any> = [];
+  const q = query(
+    propertiesCollection,
+    where("country", "==", data.country),
+    where("city", "==", data.city),
+    where("propertyType", "==", data.type),
+    where("pricePerMonth", "<=", data.price)
+  );
+  const allListings = await getDocs(q);
+  console.log(`RAW LISTING PULL: `, allListings);
   allListings.forEach((property) => {
-    console.log(`Property: `, property.id, property.data());
+    console.log(`LISTING PULL: `, property.id, property.data());
+    properties.push({ id: property.id, ...property.data() });
   });
+  return properties;
 }
 
 export async function getPropertyDetails(propertyId: string) {}

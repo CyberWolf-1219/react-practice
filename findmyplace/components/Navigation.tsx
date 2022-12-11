@@ -27,6 +27,10 @@ function Navigation({
 }) {
   const authContext = useContext(AuthContext);
 
+  function onLinkClick() {
+    setVisibility((prevState: Boolean) => !prevState);
+  }
+
   return (
     <IconContext.Provider value={{ color: "#cecece", size: "2rem" }}>
       <nav
@@ -43,19 +47,25 @@ function Navigation({
           <li className="w-fit h-fit hover:scale-105 transition-transform">
             <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
               <FiCompass />
-              <Link href={"#"}>Discover</Link>
+              <Link href={"/"} onClick={onLinkClick}>
+                Discover
+              </Link>
             </span>
           </li>
           <li className="w-fit h-fit hover:scale-105 transition-transform">
             <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
               <FiBookmark />
-              <Link href={"#"}>Discover</Link>
+              <Link href={"#"} onClick={onLinkClick}>
+                Bookmarks
+              </Link>
             </span>
           </li>
           <li className="w-fit h-fit hover:scale-105 transition-transform">
             <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
               <FiSettings />
-              <Link href={"#"}>Discover</Link>
+              <Link href={"#"} onClick={onLinkClick}>
+                Settings
+              </Link>
             </span>
           </li>
           {authContext.data ? (

@@ -18,13 +18,12 @@ function PropertyAddForm() {
 
   const [cities, setCities] = useState<Array<any>>([]);
   const [cityCoords, setCityCoords] = useState<Array<number> | null>(null);
+  const [image, setImage] = useState<any>();
 
   const [sendData] = useFetch("/api/listings/add-property", {
     "Content-Type": "application/json",
   });
   const [uploadImage] = useFetch("/api/listings/upload-file", {});
-
-  const [image, setImage] = useState<any>();
 
   async function onFileSelect(event: React.ChangeEvent<any>) {
     event.preventDefault();
@@ -65,6 +64,10 @@ function PropertyAddForm() {
     };
     const dataSendResult = await sendData(propertyData, true);
     console.log(dataSendResult);
+
+    setImage("");
+    setCityCoords(null);
+    event.target.reset();
   }
 
   function getSuggestions(event: React.ChangeEvent<HTMLInputElement>) {

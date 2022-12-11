@@ -1,15 +1,5 @@
 import { Session } from "next-auth";
 
-export interface IDummyDetails {
-  property: {
-    rating: number;
-    beds: number;
-    baths: number;
-    sqrFt: number;
-  };
-  location: [number, number];
-}
-
 export interface IAuthContext {
   data: Session | null;
   status: string;
@@ -29,4 +19,18 @@ export interface IUserValidityResult {
   email: string;
   userType: string;
   userSubType: string;
+}
+
+export interface IDetails {
+  id: string;
+  providerId: string;
+  country: string;
+  city: string;
+  propertyType: string;
+  bedrooms: number;
+  bathrooms: number;
+  rating: number;
+  pricePerMonth: number;
+  propertyImage: string;
+  location: [number, number];
 }

@@ -16,7 +16,7 @@ export type SearchData = {
   country: string;
   city: string;
   type: string;
-  price: string;
+  price: number;
 };
 
 export type PropertyData = {

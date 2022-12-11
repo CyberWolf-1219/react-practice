@@ -1,3 +1,4 @@
+import mapboxgl from "mapbox-gl";
 import React, { ReactElement, useRef } from "react";
 
 const InitialVal: {
@@ -5,11 +6,13 @@ const InitialVal: {
   flyToLocation: Function;
   setPickedLngLat: Function;
   getPickerCoords: Function;
+  addMarker: Function;
 } = {
   setMap: () => {},
   flyToLocation: (coords: [number, number]) => {},
   setPickedLngLat: (lng: number, lat: number) => {},
   getPickerCoords: () => {},
+  addMarker: (lng: number, lat: number) => {},
 };
 
 const AppMapContext = React.createContext(InitialVal);
@@ -26,7 +29,7 @@ function MapContextProvider({
     Map.current = map;
   }
 
-  function flyTo(coords: [number, number]) {
+  function flyToLocation(coords: [number, number]) {
     Map.current.flyTo({ center: coords, essential: true });
   }
 
@@ -38,13 +41,21 @@ function MapContextProvider({
     return pickerLocation.current;
   }
 
+  function addMarker(lng: number, lat: number) {
+    const marker = document.createElement("div");
+    marker.className = "map_pin";
+
+    new mapboxgl.Marker(marker).setLngLat([lng, lat]).addTo(Map.current);
+  }
+
   return (
     <AppMapContext.Provider
       value={{
-        setMap: setMap,
-        flyToLocation: flyTo,
+        setMap,
+        flyToLocation,
         setPickedLngLat,
         getPickerCoords,
+        addMarker,
       }}
     >
       {children}

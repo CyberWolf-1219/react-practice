@@ -1,21 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../contexts/SearchContext";
 import SearchResult from "./SearchResult";
-import { IDummyDetails } from "../interfaces/all";
+import { IDetails } from "../interfaces/all";
 
 function SearchResultPanel({ classList }: { classList: string }) {
-  const [data, setData] = useState<{
-    status: string;
-    propertyArray: Array<any>;
-  }>();
+  const [data, setData] = useState<Array<any>>();
+
   const searchContext = useContext(SearchContext);
   searchContext.setResultUpdateFunc(setData!);
-  useEffect(() => {
-    console.log(`SearchResultPanel:`, data);
-  });
 
   const content = data ? (
-    data.propertyArray.map((Obj: IDummyDetails, index: number) => {
+    data.map((Obj: IDetails, index: number) => {
       return <SearchResult key={index} details={Obj} />;
     })
   ) : (

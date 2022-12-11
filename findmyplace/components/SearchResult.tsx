@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import dummyImage from "./../assets/dummy_home.jpg";
+import React, { useState, useContext, useEffect } from "react";
 import DetailTag from "./DetailTag";
 import {
   BsBookmarkPlus,
@@ -8,20 +7,16 @@ import {
 } from "react-icons/bs";
 import { IoMdLocate } from "react-icons/io";
 import { AppMapContext } from "../contexts/MapContext";
-
-interface IDetails {
-  property: {
-    rating: number;
-    beds: number;
-    baths: number;
-    sqrFt: number;
-  };
-  location: [number, number];
-}
+import { IDetails } from "../interfaces/all";
 
 function SearchResult({ details }: { details: IDetails }) {
+  console.log(details);
   const mapContext = useContext(AppMapContext);
   const [bookMarkerd, setBookMarkerd] = useState<Boolean>(false);
+
+  useEffect(() => {
+    mapContext.addMarker(details.location[0], details.location[1]);
+  }, []);
 
   function bookmarkBtnHandler(event: React.MouseEvent) {
     event.preventDefault();
@@ -41,7 +36,7 @@ function SearchResult({ details }: { details: IDetails }) {
   return (
     <div className="shrink-0 w-screen h-full flex flex-row snap-start rounded-lg overflow-hidden bg-white">
       <img
-        src={dummyImage.src}
+        src={details.propertyImage}
         alt=""
         className="min-w-[40%] h-full object-cover"
       />
@@ -53,17 +48,17 @@ function SearchResult({ details }: { details: IDetails }) {
 
         <div className="flex flex-wrap gap-2">
           <DetailTag>
-            <span>{details.property.rating}</span>
+            <span>{details.rating}</span>
             <BsStarFill />
           </DetailTag>
           <DetailTag>
-            <span>{details.property.beds}Bedrooms</span>
+            <span>{details.beds}Bedrooms</span>
           </DetailTag>
           <DetailTag>
-            <span>{details.property.baths} Baths</span>
+            <span>{details.baths} Baths</span>
           </DetailTag>
           <DetailTag>
-            <span>{details.property.sqrFt} Baths</span>
+            <span>{details.sqrFt} Baths</span>
           </DetailTag>
         </div>
 

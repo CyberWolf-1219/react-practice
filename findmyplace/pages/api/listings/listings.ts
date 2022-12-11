@@ -1,15 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getListings } from "../../../lib/firebase";
-import { PropertyData } from "../../../types/types";
+import { PropertyData, SearchData } from "../../../types/types";
 
-function ListingReqHandler(req: NextApiRequest, res: NextApiResponse) {
-  console.log(req.body);
+async function ListingReqHandler(req: NextApiRequest, res: NextApiResponse) {
+  console.log(`LISTING HANDLER: `, req.body);
+  const searchData = req.body as SearchData;
 
-  const propertyArray: Array<PropertyData> = [];
+  const matchedListings = await getListings(searchData);
 
-  // getListings();
-
-  res.status(200).json({ status: "OK", propertyArray });
+  res.status(200).json({ status: "OK", propertyArray: matchedListings });
 }
 
 export default ListingReqHandler;
