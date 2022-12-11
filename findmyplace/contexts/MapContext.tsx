@@ -7,12 +7,14 @@ const InitialVal: {
   setPickedLngLat: Function;
   getPickerCoords: Function;
   addMarker: Function;
+  removeAllMarkers: Function;
 } = {
   setMap: () => {},
   flyToLocation: (coords: [number, number]) => {},
   setPickedLngLat: (lng: number, lat: number) => {},
   getPickerCoords: () => {},
   addMarker: (lng: number, lat: number) => {},
+  removeAllMarkers: () => {},
 };
 
 const AppMapContext = React.createContext(InitialVal);
@@ -24,6 +26,7 @@ function MapContextProvider({
 }) {
   const Map = useRef<any>();
   const pickerLocation = useRef<Array<number>>([]);
+  const markers = useRef<Array<any>>([]);
 
   function setMap(map: any) {
     Map.current = map;
@@ -45,7 +48,15 @@ function MapContextProvider({
     const marker = document.createElement("div");
     marker.className = "map_pin";
 
-    new mapboxgl.Marker(marker).setLngLat([lng, lat]).addTo(Map.current);
+    markers.current.push(
+      new mapboxgl.Marker(marker).setLngLat([lng, lat]).addTo(Map.current)
+    );
+  }
+
+  function removeAllMarkers() {
+    markers.current.forEach((marker: mapboxgl.Marker) => {
+      marker.remove();
+    });
   }
 
   return (
@@ -56,6 +67,7 @@ function MapContextProvider({
         setPickedLngLat,
         getPickerCoords,
         addMarker,
+        removeAllMarkers,
       }}
     >
       {children}

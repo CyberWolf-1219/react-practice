@@ -15,7 +15,7 @@ export type authObj = {
 export type SearchData = {
   country: string;
   city: string;
-  type: string;
+  // type: string;
   price: number;
 };
 

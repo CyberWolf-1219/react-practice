@@ -52,13 +52,10 @@ function SearchResult({ details }: { details: IDetails }) {
             <BsStarFill />
           </DetailTag>
           <DetailTag>
-            <span>{details.beds}Bedrooms</span>
+            <span>{details.bedrooms}Bedrooms</span>
           </DetailTag>
           <DetailTag>
-            <span>{details.baths} Baths</span>
-          </DetailTag>
-          <DetailTag>
-            <span>{details.sqrFt} Baths</span>
+            <span>{details.bathrooms} Baths</span>
           </DetailTag>
         </div>
 

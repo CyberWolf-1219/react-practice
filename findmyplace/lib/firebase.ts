@@ -102,7 +102,7 @@ export async function getListings(data: SearchData) {
     propertiesCollection,
     where("country", "==", data.country),
     where("city", "==", data.city),
-    where("propertyType", "==", data.type),
+    // where("propertyType", "==", data.type),
     where("pricePerMonth", "<=", data.price)
   );
   const allListings = await getDocs(q);

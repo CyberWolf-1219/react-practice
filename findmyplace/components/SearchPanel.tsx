@@ -10,13 +10,14 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
   //=====================================================================
   const searchContext = useContext(SearchContext);
   const mapContext = useContext(AppMapContext);
+
   const timeout_1 = useRef<NodeJS.Timeout | undefined>();
   const timeout_2 = useRef<NodeJS.Timeout | undefined>();
   const timeout_3 = useRef<NodeJS.Timeout | undefined>();
 
   const countryInput = useRef<HTMLInputElement>(null);
   const cityInput = useRef<HTMLInputElement>(null);
-  const propertyTypeInput = useRef<HTMLSelectElement>(null);
+  // const propertyTypeInput = useRef<HTMLSelectElement>(null);
   const priceRangeInput = useRef<HTMLSelectElement>(null);
   const [cities, setCities] = useState<Array<any>>([]);
   //=====================================================================
@@ -25,17 +26,17 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
     console.log(`SEARCHING FOR PROPERTIES...`);
     const country = countryInput.current!.value;
     const city = cityInput.current!.value;
-    const type = propertyTypeInput.current!.value;
+    // const type = propertyTypeInput.current!.value;
     const price = parseInt(priceRangeInput.current!.value);
 
-    console.log(`SearchPanel: ${country} ${city} ${type} ${price}`);
+    console.log(`SearchPanel: ${country} ${city} ${price}`);
 
     if (timeout_1.current) {
       clearTimeout(timeout_1.current);
     }
 
     timeout_1.current = setTimeout(() => {
-      searchContext.search({ country, city, type, price });
+      searchContext.search({ country, city, price });
     }, 1000);
   }
 
@@ -83,11 +84,12 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
   function onChangeHandler(
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
+    mapContext.removeAllMarkers();
     const country = countryInput.current!.value;
     const city = cityInput.current!.value;
-    const type = propertyTypeInput.current!.value;
+    // const type = propertyTypeInput.current!.value;
     const price = priceRangeInput.current!.value;
-    if (country !== "" && city !== "" && type !== "" && price !== "") {
+    if (country !== "" && city !== "" && price !== "") {
       search();
     } else {
       getSuggestions(event as React.ChangeEvent<HTMLInputElement>);
@@ -151,7 +153,7 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
       </div>
 
       <div className="w-full h-fit p-1 flex flex-col gap-2 overflow-hidden">
-        <select
+        {/* <select
           ref={propertyTypeInput}
           name="type"
           id="type_select"
@@ -162,7 +164,7 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
           <option value="">Select A Property Type</option>
           <option value="1">Rental</option>
           <option value="2">Sale</option>
-        </select>
+        </select> */}
         <select
           ref={priceRangeInput}
           name="price_range"

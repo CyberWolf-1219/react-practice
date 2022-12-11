@@ -58,7 +58,7 @@ function PropertyAddForm() {
       location: propertyLocation,
       bedrooms: parseInt(event.currentTarget.elements.bedroom_count.value),
       bathrooms: parseInt(event.currentTarget.elements.bathroom_count.value),
-      propertyType: event.currentTarget.elements.property_type.value,
+      // propertyType: event.currentTarget.elements.property_type.value,
       pricePerMonth: parseInt(event.currentTarget.elements.price.value),
       propertyImage: image,
     };
@@ -205,7 +205,7 @@ function PropertyAddForm() {
               </span>
             </span>
             {/* PROPERTY TYPE */}
-            <span className="w-full h-fit flex flex-col">
+            {/* <span className="w-full h-fit flex flex-col">
               <label htmlFor="property_type_select">Property Type:</label>
               <select
                 name="property_type"
@@ -216,7 +216,7 @@ function PropertyAddForm() {
                 <option value="1">Rental</option>
                 <option value="2">Sale</option>
               </select>
-            </span>
+            </span> */}
             {/* BEDROOMS */}
             <span className="w-full h-fit flex flex-col">
               <label htmlFor="bedroom_count_input">Bedroom Count:</label>
