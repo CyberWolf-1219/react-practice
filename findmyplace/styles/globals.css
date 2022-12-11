@@ -71,3 +71,10 @@ option {
   height: 30px;
   border-radius: 50%;
 }
+
+.picker {
+  background-image: url("/pickerIcon.png");
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+}

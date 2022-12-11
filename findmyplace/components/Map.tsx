@@ -61,9 +61,11 @@ const markersData: IMarkerData = {
 function Map({
   settings = [0, 0, 0],
   classList = "",
+  addPicker = false,
 }: {
   settings: number[];
   classList: string;
+  addPicker: Boolean;
 }) {
   const mapContext = useContext(AppMapContext);
 
@@ -72,6 +74,11 @@ function Map({
   const [lng, setLng] = useState(settings[0]);
   const [lat, setLat] = useState(settings[1]);
   const [zoom, setZoom] = useState(settings[2]);
+
+  function onDragEnd(locationPicker: mapboxgl.Marker) {
+    const lnglat = locationPicker.getLngLat();
+    mapContext.setPickedLngLat(lnglat.lng, lnglat.lat);
+  }
 
   useEffect(() => {
     if (map.current) return;
@@ -85,14 +92,28 @@ function Map({
 
     mapContext.setMap(map.current);
 
-    markersData.features.map((marker) => {
-      const pinElement = document.createElement("div");
-      pinElement.className = "map_pin";
+    // markersData.features.map((marker) => {
+    //   const pinElement = document.createElement("div");
+    //   pinElement.className = "map_pin";
 
-      new mapboxgl.Marker(pinElement)
-        .setLngLat(marker.geometry.coordinates)
+    //   new mapboxgl.Marker(pinElement)
+    //     .setLngLat(marker.geometry.coordinates)
+    //     .addTo(map.current);
+    // });
+
+    if (addPicker) {
+      const pickerElement = document.createElement("div");
+      pickerElement.className = "picker";
+
+      const locationPicker = new mapboxgl.Marker(pickerElement)
+        .setDraggable(true)
+        .setLngLat([79.8, 6.54])
         .addTo(map.current);
-    });
+
+      locationPicker.on("dragend", () => {
+        onDragEnd(locationPicker);
+      });
+    }
   });
 
   useEffect(() => {

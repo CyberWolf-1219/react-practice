@@ -3,13 +3,16 @@ import { v4 } from "uuid";
 
 import { FiMenu } from "react-icons/fi";
 import { SearchContext } from "../contexts/SearchContext";
+import { AppMapContext } from "../contexts/MapContext";
 import { countries } from "../data/countries";
 
 function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
   //=====================================================================
   const searchContext = useContext(SearchContext);
+  const mapContext = useContext(AppMapContext);
   const timeout_1 = useRef<NodeJS.Timeout | undefined>();
   const timeout_2 = useRef<NodeJS.Timeout | undefined>();
+  const timeout_3 = useRef<NodeJS.Timeout | undefined>();
 
   const countryInput = useRef<HTMLInputElement>(null);
   const cityInput = useRef<HTMLInputElement>(null);
@@ -62,6 +65,21 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
     }
   }
 
+  function grabCoordsAndFly(event: React.ChangeEvent<HTMLInputElement>) {
+    const cityName = event.target.value;
+    if (timeout_3.current) {
+      clearTimeout(timeout_3.current);
+    }
+    timeout_3.current = setTimeout(() => {
+      cities.forEach((cityObj, index) => {
+        if (cityObj.cityName == cityName) {
+          console.log(cityObj.lat, cityObj.lng);
+          mapContext.flyToLocation([cityObj.lat, cityObj.lng]);
+        }
+      });
+    }, 1000);
+  }
+
   function onChangeHandler(
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
@@ -90,7 +108,11 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
       <datalist id="cities">
         {cities.map((cityObj, index) => {
           return (
-            <option key={`${cityObj.id}}`} value={cityObj.cityName}>
+            <option
+              id={index.toString()}
+              key={`${cityObj.id}}`}
+              value={cityObj.cityName}
+            >
               {cityObj.cityName}
             </option>
           );
@@ -124,6 +146,7 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
           autoComplete=""
           className="w-full peer"
           list="cities"
+          onChange={grabCoordsAndFly}
         />
       </div>
 

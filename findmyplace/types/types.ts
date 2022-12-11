@@ -23,6 +23,7 @@ export type PropertyData = {
   providerId: string;
   country: string;
   city: string;
+  location: Array<number>;
   propertyType: string;
   bedrooms: number;
   bathrooms: number;
