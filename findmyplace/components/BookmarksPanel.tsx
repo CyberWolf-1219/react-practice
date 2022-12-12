@@ -9,8 +9,6 @@ function BookmarksPanel({ userID }: { userID: string }) {
     "Content-Type": "application/json",
   });
 
-  const authContext = useContext(AuthContext);
-
   const [bookmarks, setBookmarks] = useState<Array<any>>([]);
 
   async function presentBookmarks() {
@@ -35,7 +33,7 @@ function BookmarksPanel({ userID }: { userID: string }) {
       <div className="w-full h-screen p-2 overflow-y-auto overflow-x-hidden bg-white rounded-lg border-2 border-slate-300 ">
         {bookmarks.map((bookmarkObj, index) => {
           console.log(`BookmarkPanel: `, bookmarkObj);
-          return <BookmarkCard propertyDetails={bookmarkObj} />;
+          return <BookmarkCard userID={userID} propertyDetails={bookmarkObj} />;
         })}
       </div>
     </div>

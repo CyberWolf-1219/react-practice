@@ -1,11 +1,13 @@
 import { initializeApp } from "firebase/app";
 import {
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
   deleteDoc,
   doc,
   DocumentData,
+  FieldValue,
   getDoc,
   getDocs,
   getFirestore,
@@ -219,5 +221,29 @@ export async function addBookmark(userID: string, properytID: string) {
     });
     console.log(`BOOKMARK DOC CREATION: `, bookmarkDocCreationResult);
     return bookmarkDocCreationResult;
+  }
+}
+
+export async function getBookmarkDocId(userID: string) {
+  const q = query(bookmarksCollection, where("userID", "==", userID));
+  const matchedDoc = await getDocs(q);
+
+  let docID = null;
+  matchedDoc.forEach((doc) => {
+    docID = doc.id;
+  });
+
+  return docID;
+}
+
+export async function removeBookmark(userID: string, propertyID: string) {
+  const docID = await getBookmarkDocId(userID);
+  if (docID) {
+    const docRef = doc(db, "bookmarks", docID);
+    const bookmarkRemoveResult = await updateDoc(docRef, {
+      bookmarks: arrayRemove(propertyID),
+    });
+    console.log(`BOOKMARK REMOVE RESULT: `, bookmarkRemoveResult);
+    return bookmarkRemoveResult;
   }
 }

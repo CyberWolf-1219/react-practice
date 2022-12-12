@@ -20,6 +20,7 @@ export type SearchData = {
 };
 
 export type PropertyData = {
+  id: string;
   providerId: string;
   providerContact: number;
   country: string;

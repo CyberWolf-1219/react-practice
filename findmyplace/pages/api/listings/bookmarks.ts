@@ -4,6 +4,7 @@ import {
   checkBookmarked,
   getBookmarkedListingIds,
   getBookmarkedListings,
+  removeBookmark,
 } from "../../../lib/firebase";
 
 async function BookmarkReqHandler(req: NextApiRequest, res: NextApiResponse) {
@@ -25,6 +26,9 @@ async function BookmarkReqHandler(req: NextApiRequest, res: NextApiResponse) {
     const bookmarked = await checkBookmarked(data.userID, data.propertyID);
     console.log(`BOOKMARK HANLDER CHECK:`, bookmarked);
     res.status(200).json({ bookmarked: bookmarked });
+  } else if (data.action == "remove") {
+    const result = await removeBookmark(data.userID, data.propertyID);
+    res.status(200).json({ msg: "OK" });
   } else {
     res.status(200).json({ msg: "OK" });
   }
