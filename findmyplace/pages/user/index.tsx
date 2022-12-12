@@ -6,8 +6,9 @@ import Navigation from "../../components/Navigation";
 import NavigationBtn from "../../components/NavigationBtn";
 import PropertyAddForm from "../../components/PropertyAddForm";
 import { AuthContext } from "../../contexts/AuthContext";
+import { Session } from "next-auth";
 
-function UserProfilePage() {
+function UserProfilePage({ session }: { session: Session }) {
   const authContext = useContext(AuthContext);
   const [navVisible, setNavVisible] = useState<Boolean>(false);
 
@@ -19,8 +20,8 @@ function UserProfilePage() {
     <main>
       <NavigationBtn setVisibility={invertNavState} />
       <Navigation visible={navVisible} setVisibility={invertNavState} />
-      {authContext!.data!.user!.type == "1" ? (
-        <BookmarksPanel />
+      {session!.user!.type == "1" ? (
+        <BookmarksPanel userID={session.user!.id} />
       ) : (
         <PropertyAddForm />
       )}
@@ -32,6 +33,7 @@ export default UserProfilePage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession({ req: context.req });
+  console.log(`USER INDEX SESSION: `, session);
   if (!session) {
     return {
       redirect: {
@@ -41,7 +43,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   } else {
     return {
-      props: {},
+      props: { session },
     };
   }
 }
