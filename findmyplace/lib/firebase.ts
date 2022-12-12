@@ -1,14 +1,16 @@
 import { initializeApp } from "firebase/app";
 import {
   addDoc,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
   DocumentData,
-  getDocFromServer,
+  getDoc,
   getDocs,
   getFirestore,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import {
@@ -36,6 +38,7 @@ const db = getFirestore();
 const usersCollection = collection(db, "users");
 const propertiesCollection = collection(db, "properties");
 const geolocationsCollection = collection(db, "geolocations");
+const bookmarksCollection = collection(db, "bookmarks");
 
 const storage = getStorage(app);
 
@@ -114,6 +117,22 @@ export async function getListings(data: SearchData) {
   return properties;
 }
 
+export async function getBookmarkedListings(idArray: Array<string>) {
+  const docs = await getDocs(propertiesCollection);
+  const listings: Array<any> = [];
+
+  docs.forEach((doc) => {
+    const listing = { id: doc.id, ...doc.data() };
+    console.log(`BOOKMARKD LISTING: `, listing);
+    if (idArray.includes(listing.id)) {
+      console.log(`MATCH FOUND: `, listing.id);
+      listings.push({ id: doc.id, ...doc.data() });
+    }
+  });
+
+  return listings;
+}
+
 export async function getPropertyDetails(propertyId: string) {}
 export async function deleteProperty(propertyId: string) {}
 
@@ -134,4 +153,71 @@ export async function getCities(data: string) {
     });
   });
   return cities;
+}
+
+// BOOKMARKS COLLECTION
+
+export async function checkBookmarked(userID: string, propertyID: string) {
+  const q = query(
+    bookmarksCollection,
+    where("userID", "==", userID),
+    where("bookmarks", "array-contains", propertyID)
+  );
+  const matchedDocs = await getDocs(q);
+  console.log(`CHECK BOOKMARKED: `, matchedDocs.docs);
+
+  if (matchedDocs.size > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export async function checkBookmarksDocExistance(userID: string) {
+  const q = query(bookmarksCollection, where("userID", "==", userID));
+  const result = await getDocs(q);
+
+  let docId = null;
+  if (result.size > 0) {
+    result.forEach((doc) => {
+      console.log(doc.id);
+      docId = doc.id;
+    });
+  }
+
+  return docId;
+}
+
+export async function getBookmarkedListingIds(userID: string) {
+  console.log(`PULLING BOOKMARKS...`);
+  const q = query(bookmarksCollection, where("userID", "==", userID));
+  const queryResult = await getDocs(q);
+
+  let bookmarks: Array<string> = [];
+  queryResult.forEach((doc) => {
+    console.log(`BOOKMARKS: `, doc.id, doc.data());
+    bookmarks = doc.data().bookmarks;
+  });
+
+  return bookmarks;
+}
+
+export async function addBookmark(userID: string, properytID: string) {
+  const bookmarkDocId = await checkBookmarksDocExistance(userID);
+
+  if (bookmarkDocId) {
+    const bookmarkDocRef = doc(db, "bookmarks", bookmarkDocId);
+    const bookmarkDocUpdateResult = await updateDoc(bookmarkDocRef, {
+      bookmarks: arrayUnion(properytID),
+    });
+    console.log(`BOOKMARK DOC UPDATE: `, bookmarkDocUpdateResult);
+    return bookmarkDocUpdateResult;
+  } else {
+    const bookmarkDocCreationResult = await addDoc(bookmarksCollection, {
+      userID: userID,
+      bookmarks: [properytID],
+    });
+    console.log(`BOOKMARK DOC CREATION: `, bookmarkDocCreationResult);
+    return bookmarkDocCreationResult;
+  }
 }

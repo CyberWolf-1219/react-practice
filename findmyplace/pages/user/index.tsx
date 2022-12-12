@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
 import React, { useContext, useState } from "react";
-import BookMarksPanel from "../../components/BookMarksPanel";
+import BookmarksPanel from "../../components/BookmarksPanel";
 import Navigation from "../../components/Navigation";
 import NavigationBtn from "../../components/NavigationBtn";
 import PropertyAddForm from "../../components/PropertyAddForm";
@@ -20,7 +20,7 @@ function UserProfilePage() {
       <NavigationBtn setVisibility={invertNavState} />
       <Navigation visible={navVisible} setVisibility={invertNavState} />
       {authContext!.data!.user!.type == "1" ? (
-        <BookMarksPanel />
+        <BookmarksPanel />
       ) : (
         <PropertyAddForm />
       )}

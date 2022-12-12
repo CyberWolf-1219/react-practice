@@ -67,6 +67,7 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
   }
 
   function grabCoordsAndFly(event: React.ChangeEvent<HTMLInputElement>) {
+    priceRangeInput.current!.value = "";
     const cityName = event.target.value;
     if (timeout_3.current) {
       clearTimeout(timeout_3.current);

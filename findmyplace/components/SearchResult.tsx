@@ -8,22 +8,53 @@ import {
 import { IoMdLocate } from "react-icons/io";
 import { AppMapContext } from "../contexts/MapContext";
 import { IDetails } from "../interfaces/all";
+import useFetch from "../hooks/useFetch";
+import { AuthContext } from "../contexts/AuthContext";
 
 function SearchResult({ details }: { details: IDetails }) {
-  console.log(details);
   const mapContext = useContext(AppMapContext);
-  const [bookMarkerd, setBookMarkerd] = useState<Boolean>(false);
+  const authContext = useContext(AuthContext);
+
+  const [bookmarked, setBookmarked] = useState<Boolean>(false);
+  const [checkBookmarked] = useFetch("/api/listings/bookmarks", {
+    "Content-Type": "application/json",
+  });
+  const [addToBookmarks] = useFetch("/api/listings/bookmarks", {
+    "Content-Type": "application/json",
+  });
 
   useEffect(() => {
+    isBookmarked();
     mapContext.addMarker(details.location[0], details.location[1]);
   }, []);
 
-  function bookmarkBtnHandler(event: React.MouseEvent) {
-    event.preventDefault();
-    setBookMarkerd((prevState) => !prevState);
+  async function isBookmarked() {
+    const bookmarkedCheckResult = await checkBookmarked({
+      action: "check",
+      userID: authContext.data?.user!.id,
+      propertyID: details.id,
+    });
+    console.log(
+      `SEARCH RESULT IS BOOKMARKED: `,
+      bookmarkedCheckResult.bookmarked!
+    );
+    if (bookmarkedCheckResult.bookmarked) {
+      setBookmarked(true);
+    }
   }
 
-  const bookmarkIconToRender = bookMarkerd ? (
+  async function bookmarkBtnHandler(event: React.MouseEvent) {
+    event.preventDefault();
+    setBookmarked((prevState) => !prevState);
+    const bookmarkAddResult = await addToBookmarks({
+      action: "add",
+      userID: authContext.data?.user!.id,
+      propertyID: details.id,
+    });
+    console.log(`Bookmark Add Result: `, bookmarkAddResult);
+  }
+
+  const bookmarkIconToRender = bookmarked ? (
     <BsFillBookmarkCheckFill color="blue" size={"1.5rem"} />
   ) : (
     <BsBookmarkPlus color="#cecece" size={"1.5rem"} />

@@ -22,6 +22,7 @@ function SearchContextProvider({
   const resultUpdateFunc = useRef<React.SetStateAction<any> | null>(null);
 
   async function search(DATA: any) {
+    resultUpdateFunc.current([]);
     const searchResult = await Search(DATA);
     console.log(`LISTING PULL RESULT: `, searchResult);
     resultUpdateFunc.current(searchResult.propertyArray);

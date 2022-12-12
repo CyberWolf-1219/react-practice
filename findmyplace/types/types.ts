@@ -21,12 +21,22 @@ export type SearchData = {
 
 export type PropertyData = {
   providerId: string;
+  providerContact: number;
   country: string;
   city: string;
   location: Array<number>;
-  propertyType: string;
+  // propertyType: string;
   bedrooms: number;
   bathrooms: number;
   pricePerMonth: number;
-  propertyImage?: string | null;
+  propertyImage: string;
+};
+
+export type AuthData = { email: string; password: string };
+
+export type SignUpData = {
+  email: string;
+  password: string;
+  userType: string;
+  userSubType: string;
 };

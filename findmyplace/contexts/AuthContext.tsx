@@ -2,14 +2,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
 import useFetch from "../hooks/useFetch";
 import { IAuthContext } from "../interfaces/all";
-
-type AuthData = { email: string; password: string };
-type SignUpData = {
-  email: string;
-  password: string;
-  userType: string;
-  userSubType: string;
-};
+import { AuthData, SignUpData } from "../types/types";
 
 const AuthContext = React.createContext<IAuthContext>({
   data: null,

@@ -53,6 +53,7 @@ function PropertyAddForm() {
     const propertyLocation = mapContext.getPickerCoords();
     const propertyData: PropertyData = {
       providerId: authContext.data?.user!.id,
+      providerContact: event.currentTarget.elements.contact_number.value,
       country: event.currentTarget.elements.country.value,
       city: event.currentTarget.elements.city.value,
       location: propertyLocation,
@@ -159,6 +160,14 @@ function PropertyAddForm() {
             disabled
             value={authContext.data!.user!.subType}
             className="w-full text-slate-500"
+          />
+          <label htmlFor="provider_contact_number_input">Contact Number:</label>
+          <input
+            type="number"
+            name="contact_number"
+            id="provider_contact_number_input"
+            className="w-full"
+            placeholder="Enter Contact Number..."
           />
         </div>
         {/* PROPERTY DETAILS */}
