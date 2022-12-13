@@ -21,7 +21,12 @@ import {
   ref,
   uploadString,
 } from "firebase/storage";
-import { PropertyData, SearchData, userObj } from "../types/types";
+import {
+  ListingUpdateData,
+  PropertyData,
+  SearchData,
+  userObj,
+} from "../types/types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCXv-fBTT_5mfRO9aziM7P-GU1x365PgZE",
@@ -125,7 +130,7 @@ export async function getProvidersListings(providerID: string) {
 
   const listings: Array<Object> = [];
   matchedDocs.forEach((doc) => {
-    const docDetails = { id: doc.id, ...doc.data };
+    const docDetails = { id: doc.id, ...doc.data() };
     console.log(`MATCHED PROVIDER DOC: `, docDetails);
     listings.push(docDetails);
   });
@@ -148,8 +153,22 @@ export async function getBookmarkedListings(idArray: Array<string>) {
   return listings;
 }
 
-export async function getPropertyDetails(propertyId: string) {}
-export async function deleteProperty(propertyId: string) {}
+export async function deleteProperty(listingID: string) {
+  const docRef = doc(db, "properties", listingID);
+  const docDeleteResult = await deleteDoc(docRef);
+  console.log(`LISTING DELETE RESULT: `, docDeleteResult);
+  return 1;
+}
+
+export async function updateListing(data: ListingUpdateData) {
+  const docRef = doc(db, "properties", data.listingID);
+  const docUpdateResult = updateDoc(docRef, {
+    pricePerMonth: data.pricePerMonth,
+    available: data.available,
+  });
+  console.log(`LISTING UPDATE RESULT: `, docUpdateResult);
+  return 1;
+}
 
 // GEOLOCATION COLLECION
 export async function getCities(data: string) {

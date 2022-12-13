@@ -1,26 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import ListingCard from "./ListingCard";
+import { v4 } from "uuid";
 
 function ListingViewer({ userID }: { userID: string }) {
   const [fetchListings] = useFetch("/api/listings/listings-provider", {
     "Content-Type": "application/json",
   });
 
+  const [listings, setListings] = useState([]);
+
   useEffect(() => {
     getListings();
   }, []);
 
   async function getListings() {
-    const listings = await fetchListings({ userID: userID });
-    console.log(`LISTINGS VIEWER: `, listings);
+    const listingReqResult = await fetchListings({ userID: userID });
+    console.log(`LISTINGS VIEWER: `, listingReqResult);
+    setListings(listingReqResult.listings);
   }
 
-  return (
-    <div className="mt-14 w-full h-[200px] p-1 overflow-y-auto flex flex-row gap-1 items-center justify-start bg-slate-200">
-      <ListingCard />
-    </div>
-  );
+  if (listings.length > 0) {
+    return (
+      <div className="mt-14 w-full h-[200px] p-1 overflow-x-hidden overflow-y-scroll flex flex-row gap-1 items-center justify-start bg-slate-200">
+        {listings.map((propertyData, index) => {
+          return (
+            <ListingCard
+              key={`${index}_${v4()}`}
+              listingDetails={propertyData}
+            />
+          );
+        })}
+      </div>
+    );
+  } else {
+    return (
+      <div className="mt-14 w-full h-[200px] p-1 overflow-y-auto flex flex-col gap-1 items-center justify-center bg-slate-200">
+        <img src="/folder.png" alt="" className="w-[50px] h-[50px]" />
+        <b>Wow... Empty!</b>
+      </div>
+    );
+  }
 }
 
 export default ListingViewer;

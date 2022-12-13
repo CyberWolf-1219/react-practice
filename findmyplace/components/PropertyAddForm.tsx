@@ -23,6 +23,7 @@ function PropertyAddForm({
   const [cities, setCities] = useState<Array<any>>([]);
   const [cityCoords, setCityCoords] = useState<Array<number> | null>(null);
   const [image, setImage] = useState<any>();
+  const [uploading, setUploading] = useState(false);
 
   const [sendData] = useFetch("/api/listings/add-property", {
     "Content-Type": "application/json",
@@ -31,6 +32,7 @@ function PropertyAddForm({
 
   async function onFileSelect(event: React.ChangeEvent<any>) {
     event.preventDefault();
+    setUploading(true);
     const selectedImage = event.target.files[0];
     const fileName = v4() + "." + selectedImage.name.split(".")[1];
 
@@ -49,6 +51,7 @@ function PropertyAddForm({
       const result = await uploadImage(JSON.stringify(uploadData), false);
       console.log(result);
       setImage(result.filePath);
+      setUploading(false);
     });
   }
 
@@ -168,11 +171,12 @@ function PropertyAddForm({
           />
           <label htmlFor="provider_contact_number_input">Contact Number:</label>
           <input
-            type="number"
+            type="text"
             name="contact_number"
             id="provider_contact_number_input"
             className="w-full"
             placeholder="Enter Contact Number..."
+            required
           />
         </div>
         {/* PROPERTY DETAILS */}
@@ -188,6 +192,7 @@ function PropertyAddForm({
                 id="country_input"
                 list="countries"
                 onChange={getSuggestions}
+                required
               />
             </span>
             {/* CITY */}
@@ -199,11 +204,12 @@ function PropertyAddForm({
                 id="city_input"
                 list="cities"
                 onChange={grabCityCoords}
+                required
               />
             </span>
             {/* MAP LOCATION */}
-            <span className="w-full h-[300px] flex flex-col ">
-              <label htmlFor="">Location: </label>
+            <span className="w-full h-[350px] flex flex-col ">
+              <label htmlFor="">Location(Drag Pin to Location): </label>
               <span className="relative w-full h-[300px] flex flex-col border-2 rounded-md overflow-hidden">
                 {cityCoords ? (
                   <Map
@@ -217,6 +223,7 @@ function PropertyAddForm({
                   </h3>
                 )}
               </span>
+              <p>You Can Zoom the Map!</p>
             </span>
             {/* PROPERTY TYPE */}
             {/* <span className="w-full h-fit flex flex-col">
@@ -238,6 +245,7 @@ function PropertyAddForm({
                 type="number"
                 name="bedroom_count"
                 id="bedroom_count_input"
+                required
               />
             </span>
             {/* BATHROOMS */}
@@ -247,6 +255,7 @@ function PropertyAddForm({
                 type="number"
                 name="bathroom_count"
                 id="bathroom_count_input"
+                required
               />
             </span>
             {/* PRICE */}
@@ -259,6 +268,7 @@ function PropertyAddForm({
                   name="price"
                   id="price_input"
                   className="w-full"
+                  required
                 />
               </span>
             </span>
@@ -266,11 +276,30 @@ function PropertyAddForm({
           {/* IMAGE UPLOAD */}
           <div className="w-full h-fit flex flex-col gap-2 items-start justify-start">
             <label htmlFor="image_input">Image of the Property:</label>
-            <img
-              src={image}
-              alt="uploaded property image"
-              className="w-full min-w-[350px] max-w-[350px] h-fit min-h-[350px] max-h-[350px] object-contain flex items-center justify-center border-2 border-slate-300 rounded-md"
-            />
+            <div className="w-full min-w-[350px] max-w-[350px] h-[350px] max-h-[350px] flex flex-col items-center justify-center border-2 border-slate-300 rounded-md overflow-hidden">
+              {uploading ? (
+                <>
+                  <img
+                    src="/upload.gif"
+                    alt=""
+                    className="w-full h-full object-contain"
+                  />
+                  <a
+                    href="https://www.flaticon.com/free-animated-icons/upload"
+                    title="upload animated icons"
+                    className="font-thin text-sm"
+                  >
+                    Upload animated icons created by Freepik - Flaticon
+                  </a>
+                </>
+              ) : (
+                <img
+                  src={image}
+                  alt="uploaded property image"
+                  className="w-full h-full object-contain"
+                />
+              )}
+            </div>
             <input
               type="file"
               name="image"

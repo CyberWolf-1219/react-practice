@@ -31,7 +31,7 @@ export type PropertyData = {
   bathrooms: number;
   pricePerMonth: number;
   propertyImage: string;
-  available: string;
+  available: boolean;
 };
 
 export type AuthData = { email: string; password: string };
@@ -41,4 +41,10 @@ export type SignUpData = {
   password: string;
   userType: string;
   userSubType: string;
+};
+
+export type ListingUpdateData = {
+  listingID: string;
+  pricePerMonth: number;
+  available: boolean;
 };
