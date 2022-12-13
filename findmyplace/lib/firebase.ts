@@ -119,6 +119,19 @@ export async function getListings(data: SearchData) {
   return properties;
 }
 
+export async function getProvidersListings(providerID: string) {
+  const q = query(propertiesCollection, where("providerID", "==", providerID));
+  const matchedDocs = await getDocs(q);
+
+  const listings: Array<Object> = [];
+  matchedDocs.forEach((doc) => {
+    const docDetails = { id: doc.id, ...doc.data };
+    console.log(`MATCHED PROVIDER DOC: `, docDetails);
+    listings.push(docDetails);
+  });
+  return listings;
+}
+
 export async function getBookmarkedListings(idArray: Array<string>) {
   const docs = await getDocs(propertiesCollection);
   const listings: Array<any> = [];

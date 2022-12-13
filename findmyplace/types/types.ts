@@ -20,8 +20,8 @@ export type SearchData = {
 };
 
 export type PropertyData = {
-  id: string;
-  providerId: string;
+  id?: string;
+  providerID: string;
   providerContact: number;
   country: string;
   city: string;
@@ -31,6 +31,7 @@ export type PropertyData = {
   bathrooms: number;
   pricePerMonth: number;
   propertyImage: string;
+  available: string;
 };
 
 export type AuthData = { email: string; password: string };

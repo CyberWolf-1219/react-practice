@@ -7,6 +7,7 @@ import NavigationBtn from "../../components/NavigationBtn";
 import PropertyAddForm from "../../components/PropertyAddForm";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Session } from "next-auth";
+import ListingViewer from "../../components/ListingViewer";
 
 function UserProfilePage({ session }: { session: Session }) {
   const authContext = useContext(AuthContext);
@@ -20,10 +21,16 @@ function UserProfilePage({ session }: { session: Session }) {
     <main>
       <NavigationBtn setVisibility={invertNavState} />
       <Navigation visible={navVisible} setVisibility={invertNavState} />
-      {session!.user!.type == "1" ? (
+      {session!.user!.type == "scouter" ? (
         <BookmarksPanel userID={session.user!.id} />
       ) : (
-        <PropertyAddForm />
+        <>
+          <ListingViewer userID={session.user!.id} />
+          <PropertyAddForm
+            userID={session.user!.id}
+            userSubType={session.user!.subType}
+          />
+        </>
       )}
     </main>
   );

@@ -1,5 +1,4 @@
 import React, { useState, useContext, useRef } from "react";
-import { AuthContext } from "../contexts/AuthContext";
 import useFetch from "../hooks/useFetch";
 import { v4 } from "uuid";
 import { PropertyData } from "../types/types";
@@ -8,11 +7,16 @@ import { SearchContext } from "../contexts/SearchContext";
 import Map from "./Map";
 import { AppMapContext } from "../contexts/MapContext";
 
-function PropertyAddForm() {
+function PropertyAddForm({
+  userID,
+  userSubType,
+}: {
+  userID: string;
+  userSubType: number;
+}) {
   const timeout_1 = useRef<NodeJS.Timeout | undefined>();
   const timeout_2 = useRef<NodeJS.Timeout | undefined>();
 
-  const authContext = useContext(AuthContext);
   const searchContext = useContext(SearchContext);
   const mapContext = useContext(AppMapContext);
 
@@ -52,7 +56,7 @@ function PropertyAddForm() {
     event.preventDefault();
     const propertyLocation = mapContext.getPickerCoords();
     const propertyData: PropertyData = {
-      providerId: authContext.data?.user!.id,
+      providerID: userID,
       providerContact: event.currentTarget.elements.contact_number.value,
       country: event.currentTarget.elements.country.value,
       city: event.currentTarget.elements.city.value,
@@ -62,6 +66,7 @@ function PropertyAddForm() {
       // propertyType: event.currentTarget.elements.property_type.value,
       pricePerMonth: parseInt(event.currentTarget.elements.price.value),
       propertyImage: image,
+      available: event.currentTarget.elements.available.value,
     };
     const dataSendResult = await sendData(propertyData, true);
     console.log(dataSendResult);
@@ -149,7 +154,7 @@ function PropertyAddForm() {
             name="user_id"
             id="user_id_input"
             disabled
-            value={authContext.data!.user!.id}
+            value={userID}
             className="w-full text-slate-500"
           />
           <label htmlFor="user_type_input">User Type:</label>
@@ -158,7 +163,7 @@ function PropertyAddForm() {
             name="user_type"
             id="user_type_input"
             disabled
-            value={authContext.data!.user!.subType}
+            value={userSubType}
             className="w-full text-slate-500"
           />
           <label htmlFor="provider_contact_number_input">Contact Number:</label>
@@ -276,11 +281,18 @@ function PropertyAddForm() {
               required={true}
             />
           </div>
-          <input
-            type="submit"
-            value="PUBLISH"
-            className="w-full bg-blue-500 font-bold text-white"
-          />
+          <div className="w-full h-fit flex flex-col gap-2 items-start justify-start">
+            <label htmlFor="availability_input">Availability: </label>
+            <select name="available" id="availability_input" className="w-full">
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+            <input
+              type="submit"
+              value="PUBLISH"
+              className="w-full bg-blue-500 font-bold text-white"
+            />
+          </div>
         </div>
       </form>
     </div>
