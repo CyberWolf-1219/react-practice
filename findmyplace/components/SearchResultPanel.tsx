@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { SearchContext } from "../contexts/SearchContext";
 import SearchResult from "./SearchResult";
 import { IDetails } from "../interfaces/all";
@@ -15,7 +15,10 @@ function SearchResultPanel({ classList }: { classList: string }) {
         return <SearchResult key={index} details={Obj} />;
       })
     ) : (
-      <span className="w-full h-full flex flex-col justify-center text-white text-center font-bold text-2xl bg-blue-600 rounded-md">
+      <span
+        className={`relative z-[1] w-full h-full flex flex-col items-center justify-center text-black text-center font-bold text-2xl rounded-md bg-white md:rounded-md md:shadow-md md:shadow-slate-400`}
+      >
+        <img src="/shared.gif" alt="nothing yet" className="w-[150px]" />
         Nothing Yet!
       </span>
     );

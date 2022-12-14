@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
+import { FiLogIn } from "react-icons/fi";
 
 function SignInBtn() {
   const router = useRouter();
@@ -12,9 +13,10 @@ function SignInBtn() {
   return (
     <button
       onClick={btnClickHandler}
-      className="flex flex-row items-center justify-center font-bold text-lg bg-none"
+      className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black"
     >
-      SignIn
+      <FiLogIn />
+      <span className="md:hidden">SignIn</span>
     </button>
   );
 }

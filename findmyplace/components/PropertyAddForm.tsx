@@ -69,7 +69,8 @@ function PropertyAddForm({
       // propertyType: event.currentTarget.elements.property_type.value,
       pricePerMonth: parseInt(event.currentTarget.elements.price.value),
       propertyImage: image,
-      available: event.currentTarget.elements.available.value,
+      available:
+        event.currentTarget.elements.available.value == 1 ? true : false,
     };
     const dataSendResult = await sendData(propertyData, true);
     console.log(dataSendResult);
@@ -121,7 +122,7 @@ function PropertyAddForm({
   }
 
   return (
-    <div className="w-full h-auto p-4 flex flex-col items-center justify-center">
+    <div className="w-full h-auto p-4 flex flex-col items-center justify-center ">
       <datalist id="countries">
         {countries.map((countryName, index) => {
           return (
@@ -147,7 +148,7 @@ function PropertyAddForm({
       <form
         action=""
         onSubmit={onSubmit}
-        className="w-fit max-w-[400px] h-fit  flex flex-col gap-4"
+        className="w-fit max-w-[400px] h-fit  flex flex-col gap-4 bg-white"
       >
         {/* PROVIDER DATA */}
         <div className="w-full h-fit p-4 flex flex-col items-start justify-start bg-white/70 backdrop-blur-md border-2 border-slate-400 shadow-md shadow-gray-600 rounded-md">
@@ -313,8 +314,8 @@ function PropertyAddForm({
           <div className="w-full h-fit flex flex-col gap-2 items-start justify-start">
             <label htmlFor="availability_input">Availability: </label>
             <select name="available" id="availability_input" className="w-full">
-              <option value="1">Yes</option>
-              <option value="0">No</option>
+              <option value={1}>Yes</option>
+              <option value={0}>No</option>
             </select>
             <input
               type="submit"

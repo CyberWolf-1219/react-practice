@@ -6,7 +6,13 @@ import { SearchContext } from "../contexts/SearchContext";
 import { AppMapContext } from "../contexts/MapContext";
 import { countries } from "../data/countries";
 
-function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
+function SearchPanel({
+  setNavVisibility,
+  classList,
+}: {
+  setNavVisibility: () => void;
+  classList: string;
+}) {
   //=====================================================================
   const searchContext = useContext(SearchContext);
   const mapContext = useContext(AppMapContext);
@@ -98,7 +104,9 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
   }
 
   return (
-    <form className="absolute top-4 left-4 right-4 max-w-[80vw] h-fit mx-auto flex flex-col gap-2 bg-none z-[2]">
+    <form
+      className={`absolute top-4 left-4 right-4 max-w-[80vw] h-fit mx-auto flex flex-col gap-2 bg-none z-[2] ${classList}`}
+    >
       <datalist id="countries">
         {countries.map((countryName, index) => {
           return (
@@ -126,7 +134,7 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
         <FiMenu
           color="#cecece"
           size={"1.5rem"}
-          className="shrink-0 align-middle transition-transform hover:scale-125"
+          className="shrink-0 align-middle transition-transform hover:scale-125 md:hidden"
           onClick={setNavVisibility}
         />
 
@@ -146,7 +154,6 @@ function SearchPanel({ setNavVisibility }: { setNavVisibility: () => void }) {
           name="city"
           id="city_input"
           placeholder="City"
-          autoComplete=""
           className="w-full peer"
           list="cities"
           onChange={grabCoordsAndFly}

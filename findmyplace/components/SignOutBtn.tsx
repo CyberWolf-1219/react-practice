@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import { AuthContext } from "../contexts/AuthContext";
+import { FiLogOut } from "react-icons/fi";
 
 function SignOutBtn() {
   const router = useRouter();
@@ -14,9 +15,10 @@ function SignOutBtn() {
   return (
     <button
       onClick={btnClickHandler}
-      className="flex flex-row items-center justify-center font-bold text-lg bg-none"
+      className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black"
     >
-      SignOut
+      <FiLogOut />
+      <span className="md:hidden">SignOut</span>
     </button>
   );
 }

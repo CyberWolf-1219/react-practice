@@ -47,21 +47,12 @@ select {
   background-color: #ffffff;
   border: 2px solid #cecece;
   border-radius: 0.25rem;
+  color: #111111;
 }
 
 option {
   border-radius: 0.25rem;
   outline: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: #e6e6e6;
-  }
 }
 
 .map_pin {

@@ -41,7 +41,7 @@ function ListingCard({ listingDetails }: { listingDetails: PropertyData }) {
   }
 
   return (
-    <div className="w-full min-w-[500px] h-full p-2 flex flex-row gap-2 items-center justify-center rounded-md shadow-md shadow-slate-300/30 bg-white">
+    <div className="min-w-[500px]  h-full p-2 flex flex-row gap-2 items-center justify-center rounded-md shadow-md shadow-slate-300/30 bg-white">
       <span className="w-[30%] h-full border-2 rounded-md">
         <img
           src={listingDetails.propertyImage}
@@ -83,7 +83,7 @@ function ListingCard({ listingDetails }: { listingDetails: PropertyData }) {
             />
           </span>
         </div>
-        <div className="absolute bottom-2 w-full h-fit px-2 flex items-center justify-between border-2 rounded-md">
+        <div className="absolute bottom-2 w-[95%] h-fit px-2 flex items-center justify-between border-2 rounded-md">
           <button
             onClick={onDelete}
             className="font-semibold text-red-600 transition-transform hover:scale-110 hover:cursor-pointer"

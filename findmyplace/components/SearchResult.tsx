@@ -65,7 +65,7 @@ function SearchResult({ details }: { details: IDetails }) {
   }
 
   return (
-    <div className="shrink-0 w-screen h-full flex flex-row snap-start rounded-lg overflow-hidden bg-white">
+    <div className="shrink-0 w-screen h-full flex flex-row snap-start rounded-lg overflow-hidden bg-white md:w-full  md:h-[350px] md:flex-col">
       <img
         src={details.propertyImage}
         alt=""
@@ -78,15 +78,18 @@ function SearchResult({ details }: { details: IDetails }) {
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <DetailTag>
+          {/* <DetailTag>
             <span>{details.rating}</span>
             <BsStarFill />
-          </DetailTag>
+          </DetailTag> */}
           <DetailTag>
             <span>{details.bedrooms}Bedrooms</span>
           </DetailTag>
           <DetailTag>
             <span>{details.bathrooms} Baths</span>
+          </DetailTag>
+          <DetailTag>
+            <span>Available: {details.available}</span>
           </DetailTag>
         </div>
 

@@ -7,7 +7,6 @@ import {
   FiBookmark,
   FiSettings,
   FiUser,
-  FiMenu,
   FiUserPlus,
   FiLogIn,
   FiLogOut,
@@ -17,13 +16,19 @@ import SignUpBtn from "./SignUpBtn";
 import SignInBtn from "./SignInBtn";
 import SignOutBtn from "./SignOutBtn";
 import NavigationBtn from "./NavigationBtn";
+import ProfileBtn from "./ProfileBtn";
+import HomeBtn from "./HomeBtn";
 
 function Navigation({
   visible,
   setVisibility,
+  classList = "",
+  linkClassList = "",
 }: {
   visible: Boolean;
   setVisibility: Function;
+  classList: string;
+  linkClassList: string;
 }) {
   const authContext = useContext(AuthContext);
 
@@ -32,9 +37,9 @@ function Navigation({
   }
 
   return (
-    <IconContext.Provider value={{ color: "#cecece", size: "2rem" }}>
+    <IconContext.Provider value={{ color: "#ffffff", size: "2rem" }}>
       <nav
-        className={`absolute w-screen h-screen flex flex-col items-center justify-center gap-8 z-10 bg-white transition-transform ease-in-out  ${
+        className={`absolute w-screen h-screen flex flex-col items-center justify-center gap-8 z-10 bg-white transition-transform ease-in-out md:gap-2 ${classList}  ${
           !visible ? "-translate-x-full" : "translate-x-0"
         }`}
       >
@@ -43,60 +48,45 @@ function Navigation({
           <img src={logo.src} alt="" className="w-full h-full" />
         </div>
 
-        <ul className="w-fit flex flex-col items-start justify-start gap-4">
-          <li className="w-fit h-fit hover:scale-105 transition-transform">
-            <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
-              <FiCompass />
-              <Link href={"/"} onClick={onLinkClick}>
-                Discover
-              </Link>
-            </span>
+        <ul
+          className={`w-fit flex flex-col items-start justify-start gap-4 md:h-full md:w-full md:justify-evenly md:items-center ${linkClassList} md:p-2 md:rounded-full md:bg-sky-500`}
+        >
+          <li className="w-full h-fit hover:scale-105 transition-transform md:flex items-center justify-center ">
+            <HomeBtn />
           </li>
-          <li className="w-fit h-fit hover:scale-105 transition-transform">
+          {/* <li className="w-fit h-fit hover:scale-105 transition-transform">
             <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
-              <FiBookmark />
               <Link href={"#"} onClick={onLinkClick}>
-                Bookmarks
+                <FiBookmark />
+                <span className="md:hidden">Bookmarks</span>
               </Link>
             </span>
-          </li>
-          <li className="w-fit h-fit hover:scale-105 transition-transform">
+          </li> */}
+          {/* <li className="w-fit h-fit hover:scale-105 transition-transform">
             <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
-              <FiSettings />
               <Link href={"#"} onClick={onLinkClick}>
-                Settings
+                <FiSettings />
+                <span className="md:hidden">Settings</span>
               </Link>
             </span>
-          </li>
+          </li> */}
           {authContext.data ? (
-            <li className="w-fit h-fit hover:scale-105 transition-transform">
-              <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
-                <FiUser />
-                <Link href={"/user"}>Profile</Link>
-              </span>
+            <li className="w-full h-fit hover:scale-105 transition-transform md:flex items-center justify-center">
+              <ProfileBtn />
             </li>
           ) : null}
           {!authContext.data ? (
-            <li className="w-fit h-fit hover:scale-105 transition-transform">
-              <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
-                <FiUserPlus />
-                <SignUpBtn />
-              </span>
+            <li className="w-full h-fit hover:scale-105 transition-transform  md:flex items-center justify-center">
+              <SignUpBtn />
             </li>
           ) : null}
           {authContext.data ? (
-            <li className="w-fit h-fit hover:scale-105 transition-transform">
-              <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
-                <FiLogOut />
-                <SignOutBtn />
-              </span>
+            <li className="w-full h-fit hover:scale-105 transition-transform  md:flex items-center justify-center">
+              <SignOutBtn />
             </li>
           ) : (
-            <li className="w-fit h-fit hover:scale-105 transition-transform">
-              <span className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black">
-                <FiLogIn />
-                <SignInBtn />
-              </span>
+            <li className="w-fit h-fit hover:scale-105 transition-transform  md:flex items-center justify-center">
+              <SignInBtn />
             </li>
           )}
         </ul>

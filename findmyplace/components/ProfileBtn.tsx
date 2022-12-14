@@ -1,27 +1,27 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { FiUserPlus } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
 
-function SignUpBtn() {
+function ProfileBtn() {
   const router = useRouter();
 
-  function signUpBtnHanlder(event: React.MouseEvent) {
+  function ProfileBtnHanlder(event: React.MouseEvent) {
     event.preventDefault();
-    router.push("/auth/signup");
+    router.push("/user");
   }
 
   return (
     <>
       <button
-        onClick={signUpBtnHanlder}
+        onClick={ProfileBtnHanlder}
         className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black"
       >
-        <FiUserPlus />
+        <FiUser />
 
-        <span className="md:hidden">SignUp</span>
+        <span className="md:hidden">Profile</span>
       </button>
     </>
   );
 }
 
-export default SignUpBtn;
+export default ProfileBtn;
