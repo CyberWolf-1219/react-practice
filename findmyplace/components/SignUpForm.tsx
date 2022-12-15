@@ -9,7 +9,7 @@ function SignUpForm() {
   const router = useRouter();
   const authContext = useContext(AuthContext);
 
-  const [processing, setProcessing] = useState(true);
+  const [processing, setProcessing] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userType, setUserType] = useState<string | null>(null);

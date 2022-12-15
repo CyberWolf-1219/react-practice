@@ -16,7 +16,7 @@ function SearchResultPanel({ classList }: { classList: string }) {
       })
     ) : (
       <span
-        className={`relative z-[1] w-full h-full flex flex-col items-center justify-center text-black text-center font-bold text-2xl rounded-md bg-white md:rounded-md md:shadow-md md:shadow-slate-400`}
+        className={`relative z-[1] w-full h-full flex flex-col items-center justify-center text-black text-center font-bold text-2xl `}
       >
         <img src="/shared.gif" alt="nothing yet" className="w-[150px]" />
         Nothing Yet!

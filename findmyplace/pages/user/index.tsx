@@ -23,8 +23,8 @@ function UserProfilePage({ session }: { session: Session }) {
       <Navigation
         visible={navVisible}
         setVisibility={invertNavState}
-        classList="md:fixed md:top-4 md:translate-x-0 md:w-fit md:h-fit md:p-2 md:mx-auto md:flex-row md:justify-center md:gap-8 md:rounded-full md:shadow-md md:shadow-slate-400"
-        linkClassList="md:flex-row md:gap-8 md:w-fit"
+        classList="lg:fixed lg:top-4 lg:translate-x-0 lg:w-fit lg:h-fit lg:p-2 lg:mx-auto lg:flex-row lg:justify-center lg:gap-8 lg:rounded-full lg:shadow-md lg:shadow-slate-400"
+        linkClassList="lg:flex-row lg:gap-8 lg:w-fit"
       />
       {session!.user!.type == "scouter" ? (
         <BookmarksPanel userID={session.user!.id} />

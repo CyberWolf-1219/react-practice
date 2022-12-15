@@ -1,10 +1,10 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import { v4 } from "uuid";
 
 import { FiMenu } from "react-icons/fi";
 import { SearchContext } from "../contexts/SearchContext";
 import { AppMapContext } from "../contexts/MapContext";
-import { countries } from "../data/countries";
+import useFetch from "../hooks/useFetch";
 
 function SearchPanel({
   setNavVisibility,
@@ -25,9 +25,20 @@ function SearchPanel({
   const cityInput = useRef<HTMLInputElement>(null);
   // const propertyTypeInput = useRef<HTMLSelectElement>(null);
   const priceRangeInput = useRef<HTMLSelectElement>(null);
+
+  const [countries, setCountries] = useState<Array<any>>([]);
   const [cities, setCities] = useState<Array<any>>([]);
+
+  const [fetchCountrySuggestions] = useFetch("api/input-suggestions", {
+    "Content-type": "application/json",
+  });
   //=====================================================================
 
+  useEffect(() => {
+    if (global.Window) {
+      getCountrySuggestions();
+    }
+  }, []);
   function search() {
     console.log(`SEARCHING FOR PROPERTIES...`);
     const country = countryInput.current!.value;
@@ -70,6 +81,11 @@ function SearchPanel({
         setCities(citySuggestions.suggestions);
       }, 1000);
     }
+  }
+
+  async function getCountrySuggestions() {
+    const result = await fetchCountrySuggestions({ type: "country" });
+    setCountries(result.countries);
   }
 
   function grabCoordsAndFly(event: React.ChangeEvent<HTMLInputElement>) {
@@ -134,7 +150,7 @@ function SearchPanel({
         <FiMenu
           color="#cecece"
           size={"1.5rem"}
-          className="shrink-0 align-middle transition-transform hover:scale-125 md:hidden"
+          className="shrink-0 align-middle transition-transform hover:scale-125 lg:hidden"
           onClick={setNavVisibility}
         />
 

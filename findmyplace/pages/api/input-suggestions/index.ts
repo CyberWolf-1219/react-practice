@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getCities } from "../../../lib/firebase";
+import { getCities, getCountries } from "../../../lib/firebase";
 
 async function InputSuggestionResolver(
   req: NextApiRequest,
@@ -7,9 +7,17 @@ async function InputSuggestionResolver(
 ) {
   console.log(`REQ: `, req.body);
 
-  const suggestions = await getCities(req.body.country);
+  const data: { type: "country" | "city" } = req.body;
 
-  res.status(200).json({ status: "OK", suggestions });
+  if (data.type == "country") {
+    const suggestions = await getCountries();
+    res.status(200).json({ countries: suggestions });
+  } else if (data.type == "city") {
+    const suggestions = await getCities(req.body.country);
+    res.status(200).json({ status: "OK", suggestions });
+  } else {
+    res.status(201).json({ msg: "BAD REQUEST!" });
+  }
 }
 
 export default InputSuggestionResolver;

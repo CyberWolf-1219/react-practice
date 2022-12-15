@@ -18,7 +18,7 @@ function SignUpBtn() {
       >
         <FiUserPlus />
 
-        <span className="md:hidden">SignUp</span>
+        <span className="lg:hidden">SignUp</span>
       </button>
     </>
   );

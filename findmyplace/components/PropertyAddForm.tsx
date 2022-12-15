@@ -1,8 +1,7 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import useFetch from "../hooks/useFetch";
 import { v4 } from "uuid";
 import { PropertyData } from "../types/types";
-import { countries } from "../data/countries";
 import { SearchContext } from "../contexts/SearchContext";
 import Map from "./Map";
 import { AppMapContext } from "../contexts/MapContext";
@@ -14,6 +13,7 @@ function PropertyAddForm({
   userID: string;
   userSubType: number;
 }) {
+  // ==============================================================================
   const timeout_1 = useRef<NodeJS.Timeout | undefined>();
   const timeout_2 = useRef<NodeJS.Timeout | undefined>();
 
@@ -24,11 +24,22 @@ function PropertyAddForm({
   const [cityCoords, setCityCoords] = useState<Array<number> | null>(null);
   const [image, setImage] = useState<any>();
   const [uploading, setUploading] = useState(false);
+  const [countries, setCountries] = useState<Array<any>>([]);
 
   const [sendData] = useFetch("/api/listings/add-property", {
     "Content-Type": "application/json",
   });
   const [uploadImage] = useFetch("/api/listings/upload-file", {});
+  const [fetchCountrySuggestions] = useFetch("api/input-suggestions", {
+    "Content-type": "application/json",
+  });
+  // ==============================================================================
+
+  useEffect(() => {
+    if (global.window) {
+      getCountrySuggestions();
+    }
+  }, []);
 
   async function onFileSelect(event: React.ChangeEvent<any>) {
     event.preventDefault();
@@ -103,6 +114,11 @@ function PropertyAddForm({
         setCities(citySuggestions.suggestions);
       }, 1000);
     }
+  }
+
+  async function getCountrySuggestions() {
+    const result = await fetchCountrySuggestions({ type: "country" });
+    setCountries(result.countries);
   }
 
   function grabCityCoords(event: React.ChangeEvent<HTMLInputElement>) {

@@ -18,7 +18,7 @@ function ProfileBtn() {
       >
         <FiUser />
 
-        <span className="md:hidden">Profile</span>
+        <span className="lg:hidden">Profile</span>
       </button>
     </>
   );

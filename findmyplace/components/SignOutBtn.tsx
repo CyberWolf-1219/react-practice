@@ -18,7 +18,7 @@ function SignOutBtn() {
       className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black"
     >
       <FiLogOut />
-      <span className="md:hidden">SignOut</span>
+      <span className="lg:hidden">SignOut</span>
     </button>
   );
 }

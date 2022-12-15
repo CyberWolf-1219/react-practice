@@ -16,7 +16,7 @@ function SignInBtn() {
       className="w-fit h-fit flex flex-row items-center justify-start gap-2 font-bold text-lg text-black"
     >
       <FiLogIn />
-      <span className="md:hidden">SignIn</span>
+      <span className="lg:hidden">SignIn</span>
     </button>
   );
 }

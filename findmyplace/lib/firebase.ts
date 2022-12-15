@@ -189,6 +189,17 @@ export async function getCities(data: string) {
   return cities;
 }
 
+export async function getCountries() {
+  console.log("FETCHING COUNTRIES...");
+  const queryResult = await getDocs(geolocationsCollection);
+
+  const countries: Array<string> = [];
+  queryResult.forEach((doc) => {
+    countries.push(doc.data().country);
+  });
+  return countries;
+}
+
 // BOOKMARKS COLLECTION
 
 export async function checkBookmarked(userID: string, propertyID: string) {
