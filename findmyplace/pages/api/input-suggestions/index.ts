@@ -7,13 +7,13 @@ async function InputSuggestionResolver(
 ) {
   console.log(`REQ: `, req.body);
 
-  const data: { type: "country" | "city" } = req.body;
+  const data: { type: "country" | "city"; countryName?: string } = req.body;
 
   if (data.type == "country") {
     const suggestions = await getCountries();
     res.status(200).json({ countries: suggestions });
   } else if (data.type == "city") {
-    const suggestions = await getCities(req.body.country);
+    const suggestions = await getCities(req.body.countryName);
     res.status(200).json({ status: "OK", suggestions });
   } else {
     res.status(201).json({ msg: "BAD REQUEST!" });

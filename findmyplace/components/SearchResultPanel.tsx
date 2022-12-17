@@ -4,14 +4,16 @@ import SearchResult from "./SearchResult";
 import { IDetails } from "../interfaces/all";
 
 function SearchResultPanel({ classList }: { classList: string }) {
-  const [data, setData] = useState<Array<any>>([]);
+  // ====================================================================
+  const [listings, setListings] = useState<Array<any>>([]);
 
   const searchContext = useContext(SearchContext);
-  searchContext.setResultUpdateFunc(setData!);
+  searchContext.setResultUpdateFunc(setListings!);
+  // ====================================================================
 
   const content =
-    data?.length! > 0 ? (
-      data!.map((Obj: IDetails, index: number) => {
+    listings?.length! > 0 ? (
+      listings!.map((Obj: IDetails, index: number) => {
         return <SearchResult key={index} details={Obj} />;
       })
     ) : (
@@ -22,6 +24,8 @@ function SearchResultPanel({ classList }: { classList: string }) {
         Nothing Yet!
       </span>
     );
+
+  // ====================================================================
 
   return <div className={`${classList}`}>{content}</div>;
 }

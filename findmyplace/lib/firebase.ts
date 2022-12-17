@@ -115,6 +115,7 @@ export async function getListings(data: SearchData) {
     // where("propertyType", "==", data.type),
     where("pricePerMonth", "<=", data.price)
   );
+
   const allListings = await getDocs(q);
   console.log(`RAW LISTING PULL: `, allListings);
   allListings.forEach((property) => {
@@ -172,19 +173,15 @@ export async function updateListing(data: ListingUpdateData) {
 
 // GEOLOCATION COLLECION
 export async function getCities(data: string) {
-  const q = query(geolocationsCollection, where("country", "==", data));
+  const q = query(geolocationsCollection, where("countryName", "==", data));
 
-  console.log("FETCHING...");
+  console.log("FETCHING CITIES...");
   const queryResult = await getDocs(q);
 
-  const cities: Array<object> = [];
+  let cities: Array<Object> = [];
   queryResult.forEach((doc) => {
-    cities.push({
-      id: doc.id,
-      cityName: doc.data().city,
-      lng: doc.data().lng,
-      lat: doc.data().lat,
-    });
+    console.log(`CITIES: ${doc.data().cities.length}`);
+    cities = doc.data().cities;
   });
   return cities;
 }
@@ -195,7 +192,10 @@ export async function getCountries() {
 
   const countries: Array<string> = [];
   queryResult.forEach((doc) => {
-    countries.push(doc.data().country);
+    console.log(
+      `COUNTRY: ${doc.data().countryName} CITIES: ${doc.data().cities.length}`
+    );
+    countries.push(doc.data().countryName);
   });
   return countries;
 }

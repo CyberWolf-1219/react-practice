@@ -1,10 +1,11 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { v4 } from "uuid";
 
 import { FiMenu } from "react-icons/fi";
 import { SearchContext } from "../contexts/SearchContext";
 import { AppMapContext } from "../contexts/MapContext";
 import useFetch from "../hooks/useFetch";
+import { countriesList } from "../data/countries";
 
 function SearchPanel({
   setNavVisibility,
@@ -26,19 +27,14 @@ function SearchPanel({
   // const propertyTypeInput = useRef<HTMLSelectElement>(null);
   const priceRangeInput = useRef<HTMLSelectElement>(null);
 
-  const [countries, setCountries] = useState<Array<any>>([]);
+  const [countries, setCountries] = useState<Array<any>>(countriesList);
   const [cities, setCities] = useState<Array<any>>([]);
 
-  const [fetchCountrySuggestions] = useFetch("api/input-suggestions", {
+  const [fetchCitySuggestions] = useFetch("api/input-suggestions", {
     "Content-type": "application/json",
   });
   //=====================================================================
 
-  useEffect(() => {
-    if (global.Window) {
-      getCountrySuggestions();
-    }
-  }, []);
   function search() {
     console.log(`SEARCHING FOR PROPERTIES...`);
     const country = countryInput.current!.value;
@@ -57,13 +53,13 @@ function SearchPanel({
     }, 1000);
   }
 
-  function getSuggestions(event: React.ChangeEvent<HTMLInputElement>) {
+  function getCitySuggestions(event: React.ChangeEvent<HTMLInputElement>) {
     console.log(`PULLING SUGGESTION...`);
     // ONLY TO TRIGGER ON CITY INPUT CHANGE
     if (event.target.name == "country") {
       const countryName = event.target.value;
 
-      // ELIMINATE REDUNDENT FETCHS
+      // ELIMINATE REDUNDENT FETCHES
       if (timeout_2.current) {
         clearTimeout(timeout_2.current);
       }
@@ -74,18 +70,14 @@ function SearchPanel({
           suggestions: [
             { id: string; cityName: string; lng: number; lat: number }
           ];
-        } = await searchContext.getSuggestions({
-          country: countryName,
+        } = await fetchCitySuggestions({
+          type: "city",
+          countryName: countryName,
         });
         console.log(`CITIES: `, citySuggestions);
         setCities(citySuggestions.suggestions);
       }, 1000);
     }
-  }
-
-  async function getCountrySuggestions() {
-    const result = await fetchCountrySuggestions({ type: "country" });
-    setCountries(result.countries);
   }
 
   function grabCoordsAndFly(event: React.ChangeEvent<HTMLInputElement>) {
@@ -97,8 +89,8 @@ function SearchPanel({
     timeout_3.current = setTimeout(() => {
       cities.forEach((cityObj, index) => {
         if (cityObj.cityName == cityName) {
-          console.log(cityObj.lat, cityObj.lng);
-          mapContext.flyToLocation([cityObj.lat, cityObj.lng]);
+          console.log(`COORDS: `, cityObj.coords);
+          mapContext.flyToLocation([cityObj.coords[1], cityObj.coords[0]]);
         }
       });
     }, 1000);
@@ -115,12 +107,14 @@ function SearchPanel({
     if (country !== "" && city !== "" && price !== "") {
       search();
     } else {
-      getSuggestions(event as React.ChangeEvent<HTMLInputElement>);
+      getCitySuggestions(event as React.ChangeEvent<HTMLInputElement>);
     }
   }
 
+  // =========================================================================
   return (
     <form
+      autoComplete="false"
       className={`absolute top-4 left-4 right-4 max-w-[80vw] h-fit mx-auto flex flex-col gap-2 bg-none z-[2] ${classList}`}
     >
       <datalist id="countries">
@@ -137,7 +131,7 @@ function SearchPanel({
           return (
             <option
               id={index.toString()}
-              key={`${cityObj.id}}`}
+              key={`${index}_${v4()}}`}
               value={cityObj.cityName}
             >
               {cityObj.cityName}
