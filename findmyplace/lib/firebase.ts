@@ -203,18 +203,22 @@ export async function getCountries() {
 // BOOKMARKS COLLECTION
 
 export async function checkBookmarked(userID: string, propertyID: string) {
-  const q = query(
-    bookmarksCollection,
-    where("userID", "==", userID),
-    where("bookmarks", "array-contains", propertyID)
-  );
-  const matchedDocs = await getDocs(q);
-  console.log(`CHECK BOOKMARKED: `, matchedDocs.docs);
+  try {
+    const q = query(
+      bookmarksCollection,
+      where("userID", "==", userID),
+      where("bookmarks", "array-contains", propertyID)
+    );
+    const matchedDocs = await getDocs(q);
+    console.log(`CHECK BOOKMARKED: `, matchedDocs.docs);
 
-  if (matchedDocs.size > 0) {
-    return true;
-  } else {
-    return false;
+    if (matchedDocs.size > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch {
+    return { status: "NO BOOKMARKS" };
   }
 }
 

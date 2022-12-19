@@ -14,7 +14,7 @@ async function InputSuggestionResolver(
     res.status(200).json({ countries: suggestions });
   } else if (data.type == "city") {
     const suggestions = await getCities(req.body.countryName);
-    res.status(200).json({ status: "OK", suggestions });
+    res.status(200).json({ status: "OK", cities: suggestions });
   } else {
     res.status(201).json({ msg: "BAD REQUEST!" });
   }

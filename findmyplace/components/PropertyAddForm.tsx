@@ -5,6 +5,7 @@ import { PropertyData } from "../types/types";
 import { SearchContext } from "../contexts/SearchContext";
 import Map from "./Map";
 import { AppMapContext } from "../contexts/MapContext";
+import { countriesList } from "../data/countries";
 
 function PropertyAddForm({
   userID,
@@ -24,22 +25,16 @@ function PropertyAddForm({
   const [cityCoords, setCityCoords] = useState<Array<number> | null>(null);
   const [image, setImage] = useState<any>();
   const [uploading, setUploading] = useState(false);
-  const [countries, setCountries] = useState<Array<any>>([]);
+  const [countries, setCountries] = useState<Array<any>>(countriesList);
 
   const [sendData] = useFetch("/api/listings/add-property", {
     "Content-Type": "application/json",
   });
   const [uploadImage] = useFetch("/api/listings/upload-file", {});
-  const [fetchCountrySuggestions] = useFetch("api/input-suggestions", {
+  const [fetchCitySuggestions] = useFetch("api/input-suggestions", {
     "Content-type": "application/json",
   });
   // ==============================================================================
-
-  useEffect(() => {
-    if (global.window) {
-      getCountrySuggestions();
-    }
-  }, []);
 
   async function onFileSelect(event: React.ChangeEvent<any>) {
     event.preventDefault();
@@ -104,21 +99,15 @@ function PropertyAddForm({
       timeout_1.current = setTimeout(async () => {
         const citySuggestions: {
           status: string;
-          suggestions: [
-            { id: string; cityName: string; lng: number; lat: number }
-          ];
-        } = await searchContext.getSuggestions({
-          country: countryName,
+          cities: [{ id: string; cityName: string; coords: [] }];
+        } = await fetchCitySuggestions({
+          type: "city",
+          countryName: countryName,
         });
         console.log(`CITIES: `, citySuggestions);
-        setCities(citySuggestions.suggestions);
+        setCities(citySuggestions.cities);
       }, 1000);
     }
-  }
-
-  async function getCountrySuggestions() {
-    const result = await fetchCountrySuggestions({ type: "country" });
-    setCountries(result.countries);
   }
 
   function grabCityCoords(event: React.ChangeEvent<HTMLInputElement>) {
@@ -131,7 +120,7 @@ function PropertyAddForm({
       cities.map((cityObj) => {
         if (cityObj.cityName == cityName) {
           console.log(`MATCH FOUND: `, cityObj);
-          setCityCoords([cityObj.lat, cityObj.lng]);
+          setCityCoords([cityObj.coords[1], cityObj.coords[0]]);
         }
       });
     }, 1000);
@@ -153,7 +142,7 @@ function PropertyAddForm({
           return (
             <option
               id={index.toString()}
-              key={`${cityObj.id}}`}
+              key={`${cityObj.id}_${v4()}}`}
               value={cityObj.cityName}
             >
               {cityObj.cityName}
@@ -233,6 +222,7 @@ function PropertyAddForm({
                     settings={[...cityCoords, 8]}
                     classList="z-[5] w-full h-full"
                     addPicker={true}
+                    pickerCoords={cityCoords}
                   />
                 ) : (
                   <h3 className="z-[1] relative w-full  top-[50%] -translate-y-[50%] text-center text-slate-500">

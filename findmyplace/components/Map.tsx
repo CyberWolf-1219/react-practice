@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import mapboxgl from "mapbox-gl";
+import mapboxgl, { LngLatLike } from "mapbox-gl";
 import { AppMapContext } from "../contexts/MapContext";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYmxhY2ttb25rZXktMTIxOSIsImEiOiJjbGI4bjBjcDEwbWV6M3BwN25kajhvNGlpIn0.wwUmy6wdb292D3p72roexQ";
@@ -62,10 +62,12 @@ function Map({
   settings = [0, 0, 0],
   classList = "",
   addPicker = false,
+  pickerCoords = [],
 }: {
   settings: number[];
   classList: string;
-  addPicker: Boolean;
+  addPicker?: Boolean;
+  pickerCoords?: Array<number>;
 }) {
   const mapContext = useContext(AppMapContext);
 
@@ -107,7 +109,7 @@ function Map({
 
       const locationPicker = new mapboxgl.Marker(pickerElement)
         .setDraggable(true)
-        .setLngLat([79.8, 6.54])
+        .setLngLat(pickerCoords as LngLatLike)
         .addTo(map.current);
 
       locationPicker.on("dragend", () => {

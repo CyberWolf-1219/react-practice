@@ -40,11 +40,11 @@ function Navigation({
     <IconContext.Provider value={{ color: "#ffffff", size: "2rem" }}>
       <nav
         className={`${classList}  ${
-          !visible ? "-translate-x-full" : "left-[50%] -translate-x-[50%] "
+          !visible ? "-translate-x-[200%]" : "left-[50%] -translate-x-[50%] "
         }`}
       >
         <NavigationBtn setVisibility={setVisibility} />
-        <div className="w-12 h-12 rounded-full border-2 border-white">
+        <div className="w-12 h-12 shrink-0 rounded-full border-2 border-white">
           <img src={logo.src} alt="" className="w-full h-full" />
         </div>
 

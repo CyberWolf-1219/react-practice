@@ -18,13 +18,13 @@ function UserProfilePage({ session }: { session: Session }) {
   }
 
   return (
-    <main className="relative w-full max-w-screen-lg mx-auto p-2 flex flex-col items-center bg-slate-100 shadow-md shadow-slate-500">
+    <main className="w-full max-w-screen-lg mx-auto p-2 flex flex-col items-center bg-slate-100 shadow-md shadow-slate-500">
       <NavigationBtn setVisibility={invertNavState} />
       <Navigation
         visible={navVisible}
         setVisibility={invertNavState}
-        classList="lg:fixed lg:top-4 lg:translate-x-0 lg:w-fit lg:h-fit lg:p-2 lg:mx-auto lg:flex-row lg:justify-center lg:gap-8 lg:rounded-full lg:shadow-md lg:shadow-slate-400"
-        linkClassList="lg:flex-row lg:gap-8 lg:w-fit"
+        classList="fixed top-[50%] -translate-y-[50%] w-[80vw] h-[80vh] flex flex-col items-center justify-center gap-8 z-10 bg-white border-[2px] rounded-md shadow-md shadow-slate-400 transition-transform ease-in-out lg:fixed lg:top-12 lg:translate-x-0 lg:w-fit lg:w-fit lg:h-fit lg:p-2 lg:mx-auto lg:flex-row lg:justify-center lg:gap-8 felx-nowrap lg:rounded-full lg:shadow-md lg:shadow-slate-400"
+        linkClassList="lg:flex-row lg:gap-8 "
       />
       {session!.user!.type == "scouter" ? (
         <BookmarksPanel userID={session.user!.id} />

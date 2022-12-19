@@ -67,15 +67,13 @@ function SearchPanel({
       timeout_2.current = setTimeout(async () => {
         const citySuggestions: {
           status: string;
-          suggestions: [
-            { id: string; cityName: string; lng: number; lat: number }
-          ];
+          cities: [{ id: string; cityName: string; coords: [] }];
         } = await fetchCitySuggestions({
           type: "city",
           countryName: countryName,
         });
         console.log(`CITIES: `, citySuggestions);
-        setCities(citySuggestions.suggestions);
+        setCities(citySuggestions.cities);
       }, 1000);
     }
   }
