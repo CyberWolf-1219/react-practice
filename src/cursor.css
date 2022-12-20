@@ -1,0 +1,7 @@
+#cursor.vanish {
+  transform: scale(0);
+}
+
+#cusor.appear {
+  transform: scale(1);
+}
