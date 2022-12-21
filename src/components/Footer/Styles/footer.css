@@ -1,0 +1,30 @@
+footer {
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  background-color: #141b22;
+}
+footer a {
+  font-weight: 500;
+  color: #21e786;
+  text-shadow: 0 0 0.1rem #21e786;
+  transition: 1s ease all;
+  -webkit-animation: blink-fade 1s ease infinite alternate forwards;
+          animation: blink-fade 1s ease infinite alternate forwards;
+}
+@-webkit-keyframes blink-fade {
+  from {
+    text-shadow: 0 0 0 transparent;
+  }
+  to {
+    text-shadow: 0 0 0.75rem #21e786;
+  }
+}
+@keyframes blink-fade {
+  from {
+    text-shadow: 0 0 0 transparent;
+  }
+  to {
+    text-shadow: 0 0 0.75rem #21e786;
+  }
+}/*# sourceMappingURL=footer.css.map */

@@ -1,0 +1,72 @@
+@import "./../../../css/vars.scss";
+
+.section_four_content_wrapper {
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+
+  transform: rotateY(360deg);
+  opacity: 0;
+  transition: all 1s ease;
+
+  &.visible {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+
+  & .column:nth-child(1) {
+    width: 50%;
+    height: fit-content;
+
+    text-align: left;
+
+    div {
+      width: fit-content;
+      height: fit-content;
+
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+
+      span {
+        p {
+          font-weight: 700;
+          font-size: 0.75rem;
+        }
+
+        b {
+          font-weight: 800;
+          font-size: 3rem;
+        }
+      }
+    }
+
+    button {
+      margin-top: 2rem;
+      padding: 0.5rem 0.75rem;
+      border: 2px solid $accent-light;
+      background-color: transparent;
+      color: $primary-color;
+      font-weight: 600;
+
+      transition: 300ms ease transform;
+
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: $shadow-sm;
+      }
+    }
+  }
+
+  & .column:nth-child(2) {
+    width: min-content;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}

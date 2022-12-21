@@ -1,0 +1,29 @@
+.section_five_card {
+  position: relative;
+  width: 150px;
+  height: auto;
+  padding: 1rem;
+  aspect-ratio: 2/1.2;
+  overflow: hidden;
+}
+.section_five_card img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.section_five_card::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -180%;
+  transform: rotate(-30deg);
+  width: 200%;
+  height: 8px;
+  background-color: rgba(33, 231, 135, 0.6156862745);
+  box-shadow: 0 0 0.2rem 0.1rem #21e786;
+  transition: 1s ease transform;
+}
+.section_five_card:hover::before {
+  transform: translateX(100%) rotate(-30deg);
+}/*# sourceMappingURL=section_five_card.css.map */

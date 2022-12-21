@@ -1,0 +1,63 @@
+.section_four_card {
+  position: relative;
+  width: 250px;
+  aspect-ratio: 3/2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  background-color: #141b22;
+  border: 2px solid;
+  border-color: transparent;
+  overflow: hidden;
+  transition: 300ms ease all;
+}
+.section_four_card:hover {
+  transform: scale(1.1);
+}
+.section_four_card:hover .card_background::before, .section_four_card:hover .card_background::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  background-image: radial-gradient(at center, #21e786, rgba(0, 0, 0, 0.3568627451) 80%);
+}
+.section_four_card:hover .card_background::before {
+  top: -25%;
+  left: -15%;
+}
+.section_four_card:hover .card_background::after {
+  bottom: -25%;
+  right: -15%;
+}
+.section_four_card .card_background {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+}
+.section_four_card .card_background .card_content_wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #141b22;
+}
+.section_four_card .card_background .card_content_wrapper div:nth-child(1) > b {
+  position: relative;
+  top: 100%;
+  margin: 0;
+  color: rgba(33, 231, 135, 0.3764705882);
+  font-weight: 700;
+  font-size: 3rem;
+}
+.section_four_card .card_background .card_content_wrapper div:nth-child(2) p {
+  font-weight: 400;
+}/*# sourceMappingURL=section_four_card.css.map */

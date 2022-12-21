@@ -1,0 +1,91 @@
+@import "./../../../css/vars.scss";
+
+.section_four_card {
+  position: relative;
+  width: 250px;
+  aspect-ratio: 3/2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+
+  background-color: $accent-faint;
+  border: 2px solid;
+  border-color: transparent;
+
+  overflow: hidden;
+
+  transition: 300ms ease all;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:hover .card_background {
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      background-image: radial-gradient(
+        at center,
+        $accent-light,
+        #0000005b 80%
+      );
+    }
+
+    &::before {
+      top: -25%;
+      left: -15%;
+    }
+
+    &::after {
+      bottom: -25%;
+      right: -15%;
+    }
+  }
+
+  .card_background {
+    position: absolute;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+    padding: 3px;
+
+    .card_content_wrapper {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      background-color: $accent-faint;
+
+      div:nth-child(1) > b {
+        position: relative;
+        top: 100%;
+
+        margin: 0;
+
+        color: #21e78760;
+        font-weight: 700;
+        font-size: 3rem;
+      }
+
+      div:nth-child(2) {
+        p {
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}

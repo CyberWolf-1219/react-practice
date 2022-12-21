@@ -1,0 +1,95 @@
+.hero_content_wrapper {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background-image: url("./../../../assets/hero_image.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0;
+  overflow: hidden;
+  -webkit-animation: bg-slide-up 1s 300ms ease normal forwards;
+          animation: bg-slide-up 1s 300ms ease normal forwards;
+}
+.hero_content_wrapper .light_flare {
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 800px;
+  height: 800px;
+  border-radius: 100%;
+  background-image: radial-gradient(at center, rgba(33, 231, 135, 0.6156862745) 0%, transparent 60%);
+}
+.hero_content_wrapper .heading_wrapper {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  transform: translateY(500%);
+  -webkit-animation: slideup 1s ease 1s normal forwards;
+          animation: slideup 1s ease 1s normal forwards;
+}
+.hero_content_wrapper .button_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  transform: translateY(500%);
+  -webkit-animation: slideup 1s ease 1s normal forwards;
+          animation: slideup 1s ease 1s normal forwards;
+}
+.hero_content_wrapper .button_wrapper button {
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: 300ms ease all;
+}
+.hero_content_wrapper .button_wrapper button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0.2rem 0.1rem #21e786;
+}
+.hero_content_wrapper .button_wrapper :nth-child(1) {
+  background-color: #21e786;
+  color: white;
+}
+.hero_content_wrapper .button_wrapper :nth-child(2) {
+  background-color: transparent;
+  border: 2px solid #21e786;
+  color: white;
+}
+
+@-webkit-keyframes bg-slide-up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bg-slide-up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes slideup {
+  from {
+    transform: translateY(500%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+@keyframes slideup {
+  from {
+    transform: translateY(500%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}/*# sourceMappingURL=hero_section.css.map */

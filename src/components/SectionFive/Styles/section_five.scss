@@ -1,0 +1,36 @@
+@import "./../../../css/vars.scss";
+
+.section_five_content_wrapper {
+  width: 100%;
+  height: fit-content;
+
+  h2 span {
+    color: $accent-light;
+  }
+
+  .section_five_card_wrapper {
+    width: fit-content;
+    margin: 0 auto;
+
+    .row {
+      display: flex;
+      margin: 0.5rem 0;
+    }
+
+    .row .section_five_card {
+      margin: 0 0.5rem;
+    }
+
+    .row:nth-child(1) .section_five_card:nth-child(even) {
+      background-color: $accent-faint;
+    }
+
+    .row:nth-child(2) .section_five_card:nth-child(odd) {
+      background-color: $accent-faint;
+    }
+
+    .row:nth-child(3) .section_five_card:nth-child(even) {
+      background-color: $accent-faint;
+    }
+  }
+}

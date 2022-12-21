@@ -1,0 +1,43 @@
+@import "./../../../css/vars.scss";
+
+.section_two_content_wrapper {
+  width: 100%;
+  height: fit-content;
+
+  h2 {
+    transform: translateY(100%);
+    opacity: 0;
+
+    color: white;
+    transition: all 1s ease;
+
+    span {
+      color: $accent-light;
+    }
+
+    &.visible {
+      transform: translateY(0%);
+      opacity: 1;
+    }
+  }
+
+  .section_two_card_wrapper {
+    width: 100%;
+    height: fit-content;
+
+    opacity: 0;
+    transform: translateY(100%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    transition: all 1s ease;
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
+}

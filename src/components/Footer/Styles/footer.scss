@@ -1,0 +1,29 @@
+@import "./../../../css/vars.scss";
+
+footer {
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  background-color: $accent-faint;
+
+  a {
+    font-weight: 500;
+    color: $accent-light;
+    text-shadow: 0 0 0.1rem $accent-light;
+
+    transition: 1s ease all;
+    animation: blink-fade 1s ease infinite alternate forwards;
+
+    &:hover {
+    }
+  }
+}
+
+@keyframes blink-fade {
+  from {
+    text-shadow: 0 0 0 transparent;
+  }
+  to {
+    text-shadow: 0 0 0.75rem $accent-light;
+  }
+}

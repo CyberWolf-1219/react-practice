@@ -1,0 +1,52 @@
+@import "./../../../css/vars.scss";
+
+.section_three_card {
+  &:hover .animater {
+    transform: rotateY(360deg) scale(1.1);
+    box-shadow: $shadow-lg;
+  }
+
+  .animater {
+    min-width: 200px;
+    max-width: 200px;
+    aspect-ratio: 1/1.1;
+    padding: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+
+    background-color: $accent-faint;
+    transition: 1s ease all;
+
+    .image_wrapper {
+      width: 100%;
+      height: fit-content;
+
+      img {
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+
+    p {
+      width: 100%;
+      text-align: left;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+}
+
+@keyframes screw-scale {
+  from {
+    transform: rotate(0deg);
+    transform: scale(0);
+  }
+  to {
+    transform: rotate(75deg);
+    transform: scale(1.2);
+  }
+}
