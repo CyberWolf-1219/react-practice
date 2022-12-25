@@ -1,0 +1,12 @@
+.card:hover > div:nth-child(1) {
+  background-color: #ffffff8c;
+  color: var(--primary-color);
+}
+
+.card:hover > div:nth-child(2) {
+}
+
+.card:hover > div:nth-child(3) {
+  background-color: #ffffff8c;
+  color: var(--primary-color);
+}

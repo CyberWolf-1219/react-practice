@@ -1,0 +1,20 @@
+.section {
+  background-image: url("./../../../assets/eclipses.svg");
+  background-repeat: no-repeat;
+  background-position: -80% 50%;
+  background-size: 80% 80%;
+}
+
+.header {
+  clip-path: circle(0% at 50% 50%);
+  animation: header_reveal 1s 2s ease normal forwards;
+}
+
+@keyframes header_reveal {
+  from {
+    clip-path: circle(0% at 50% 50%);
+  }
+  to {
+    clip-path: circle(100% at 50% 50%);
+  }
+}

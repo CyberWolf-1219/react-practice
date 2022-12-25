@@ -1,0 +1,28 @@
+.card {
+  border-image-source: linear-gradient(135deg, #9800df, #06c5ff);
+  border-image-slice: 1;
+
+  transition: all 1s ease;
+}
+
+.card > div {
+  transition: all 1s ease;
+}
+
+.card:hover {
+  transform: translateY(-20%);
+  box-shadow: 0 0 1rem 0.125rem var(--secondary-color);
+}
+
+.card:hover > div:first-child,
+.card:hover > div:last-child {
+  background-color: #ffffff67;
+}
+
+.card > div:nth-child(2) > img {
+  transition: all 1s ease;
+}
+
+.card:hover img {
+  transform: scale(1.2) translateY(-10%);
+}

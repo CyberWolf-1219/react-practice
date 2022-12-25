@@ -1,0 +1,21 @@
+.card {
+  border-image-source: linear-gradient(135deg, #9800df, #06c5ff);
+  border-image-slice: 1;
+}
+
+.bidders_container > * {
+  position: relative;
+}
+.bidders_container > *:nth-child(1) {
+  right: -30%;
+}
+.bidders_container > *:nth-child(2) {
+  right: -20%;
+}
+.bidders_container > *:nth-child(3) {
+  right: -10%;
+}
+
+.card:hover {
+  transform: translateY(-20%);
+}
