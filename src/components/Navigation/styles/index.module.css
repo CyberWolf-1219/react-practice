@@ -1,0 +1,83 @@
+.themeBtn {
+  z-index: 0;
+}
+
+.light_bg,
+.dark_bg,
+.icon {
+  position: absolute;
+  inset: 0;
+  transition: clip-path 250ms ease;
+}
+
+.dark_bg {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--dark-color);
+}
+
+.light_bg {
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--light-color);
+}
+
+.icon {
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+.themeBtn[data-theme="light"] .dark_bg {
+  z-index: 2;
+  clip-path: circle(0% at center);
+}
+.themeBtn[data-theme="light"] .light_bg {
+  z-index: 1;
+}
+
+.themeBtn[data-theme="dark"] .light_bg {
+  z-index: 2;
+  clip-path: circle(0% at center);
+}
+.themeBtn[data-theme="dark"] .dark_bg {
+  z-index: 1;
+}
+
+.themeBtn[data-theme="light"]:hover .dark_bg {
+  clip-path: circle(55% at center);
+}
+.themeBtn[data-theme="dark"]:hover .light_bg {
+  clip-path: circle(55% at center);
+}
+
+.menuBtn:hover {
+  animation: menuBtnAnimation 1s ease normal infinite forwards;
+}
+
+.menu {
+  top: 0;
+  left: 100%;
+  transition: transform 1s ease;
+}
+.menu[data-state="visible"] {
+  transform: translateX(-100%);
+}
+
+@keyframes menuBtnAnimation {
+  0% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(1.2);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}

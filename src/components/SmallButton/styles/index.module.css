@@ -1,0 +1,11 @@
+.btn {
+  transition: all 250ms ease;
+}
+
+.btn:hover,
+.btn:focus {
+  transform: scale(1.1);
+  box-shadow: 0 5px 5px 1px var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+}
