@@ -1,0 +1,11 @@
+.card {
+  box-shadow: 5px 0px 5px 0px hsla(0, 0%, 0%, 0.5);
+
+  transition-duration: 0.5s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+}
+
+.card:hover {
+  transform: translateX(10%);
+}
