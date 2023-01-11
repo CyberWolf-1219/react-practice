@@ -1,0 +1,15 @@
+.footer {
+  background: hsla(16, 96%, 48%, 0.1) url("../../../public/bg.svg");
+  background-position-y: -40%;
+  background-repeat: repeat-x;
+  background-size: cover;
+}
+
+.list > li {
+  list-style-type: "\00BB ";
+  padding-inline-start: 1ch;
+}
+
+.list > li::marker {
+  font-size: 1.5rem;
+}

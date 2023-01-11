@@ -1,0 +1,7 @@
+.header {
+  background: hsla(16, 96%, 48%, 0.1)
+    url("../../../assets/section_hero/hero_section_bg.svg");
+  background-size: cover;
+  background-repeat: no-repeat, no-repeat;
+  background-position: -350px 0px;
+}
