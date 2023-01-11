@@ -7,7 +7,7 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: hsla(258, 90%, 66%, 0.7);
+  --primary-color: #895af6b3;
   --secondary-color: #1f2937;
   --bg-color: #e5e5e5;
 

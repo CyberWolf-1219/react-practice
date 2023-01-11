@@ -59,18 +59,17 @@ function CountDown(props: ICountDownProps) {
   }, [props]);
 
   return (
-    <div className={`w-fit h-[10ch] p-4 bg-fade ${props.classes}`}>
-      <p className={`w-[50ch] flex flex-row items-center justify-between`}>
-        <span className={`font-bold`}>GRAND OPENING</span>
+    <div className={ `countdown w-[50ch] h-[10ch]  ${props.classes}` }>
+      <p className={ `countdown_panel absolute w-full h-full p-4 bg-fade` }>
+        <span className={ `font-bold` }>GRAND OPENING </span>
         <span>All items are 25% Discount for New Member!</span>
       </p>
-      <div
-        className={`relative -bottom-[5px] -left-[50px] w-[15ch] p-4 flex flex-row items-center justify-center gap-4 text-white font-bold text-5xl bg-primary`}>
-        <span>{state.hours}</span>
+      <div className={ `countdown_panel absolute -bottom-[70%] -left-[50px] w-full h-full p-4 flex flex-row items-center justify-center gap-4 text-white font-bold text-5xl bg-primary/90` }>
+        <span>{ String(state.hours).padStart(2, '0') }</span>
         <span>:</span>
-        <span>{state.mins}</span>
+        <span>{ String(state.mins).padStart(2, "0") }</span>
         <span>:</span>
-        <span>{state.secs}</span>
+        <span>{ String(state.secs).padStart(2, "0") }</span>
       </div>
     </div>
   );
