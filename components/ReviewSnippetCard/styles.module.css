@@ -1,0 +1,8 @@
+.card {
+  transition: all 0.5s ease;
+}
+
+.card[data-active="true"] {
+  transform: translateY(-25%);
+  box-shadow: 0 5px 10px 1px var(--accent-color);
+}
