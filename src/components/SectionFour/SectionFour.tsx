@@ -4,12 +4,11 @@ import SectionFourCard from "./../SectionFourCard/SectionFourCard";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 
 function SectionFour() {
-  const [contentWrapper, cwVisible] = useIntersectionObserver({});
+  const [section, cwVisible] = useIntersectionObserver({});
 
   return (
-    <section>
+    <section ref={section}>
       <div
-        ref={contentWrapper}
         className={`${cwVisible ? "visible" : ""} section_four_content_wrapper`}
       >
         <div className="column">
