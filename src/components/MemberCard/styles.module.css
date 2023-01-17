@@ -1,0 +1,22 @@
+.card > div {
+  position: relative;
+}
+
+.card > div > div {
+  transition: all 1s ease;
+}
+
+.card > div > div:nth-child(1) {
+  border-radius: 50%;
+}
+
+.card:hover > div > div:nth-child(1) {
+  width: 100%;
+  border: none;
+  border-radius: 0;
+}
+
+.card:hover > div > div {
+  position: relative;
+  transition: all 1s ease;
+}
