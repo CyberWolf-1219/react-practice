@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useLayoutEffect } from "react";
+import styleClasses from "./styles.module.css"
 import gsap from "gsap";
 
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
@@ -45,7 +46,7 @@ function SectionThree() {
 
   return (
     <Container>
-      <div ref={ element } className={ `w-full h-fit text-center` }>
+      <div ref={ element } className={ `${styleClasses.background} w-full h-fit text-center` }>
         <p className={ `text-accent` }>A BETTER WAY TO INVEST</p>
         <h2 className={ `mb-20` }>The World Leading Cyptocurrency Platform</h2>
         <div className={ `brand_value_card_container w-full h-fit grid grid-cols-3 gap-4 content-center items-center` }>
