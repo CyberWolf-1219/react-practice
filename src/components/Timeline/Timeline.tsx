@@ -6,7 +6,7 @@ import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import gsap from "gsap";
 
 function Timeline() {
-  const root = useRef<HTMLDivElement>();
+  const root = useRef<HTMLDivElement>(null);
   const timeline = useRef<GSAPTimeline>();
 
   const [rootElement, isVisible] = useIntersectionObserver({ threshold: 0.2 });

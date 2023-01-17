@@ -5,7 +5,7 @@ import gsap from "gsap";
 import star from "../../assets/star.svg";
 
 function SectionSix() {
-  const root = useRef<HTMLDivElement>();
+  const root = useRef<HTMLDivElement>(null);
   const timeline = useRef<GSAPTimeline>();
 
   const [section, isVisible] = useIntersectionObserver({ threshold: 0.2 });
