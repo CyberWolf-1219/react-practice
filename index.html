@@ -10,6 +10,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
+    <style>
+      body {
+        height: 1000vh;
+      }
+    </style>
   </head>
   <div id="Modal_Root"></div>
   <body>
@@ -17,5 +22,33 @@
     <script
       type="module"
       src="/src/main.tsx"></script>
+
+    <script defer>
+      var scrollAmnt = 0;
+
+      document.addEventListener(
+        "wheel",
+        (e) => {
+          e.preventDefault();
+          scrollAmnt = document.scrollingElement.scrollTop + e.deltaY * 3;
+        },
+        { passive: false }
+      );
+    </script>
+
+    <script defer>
+      function lerp(a, b, n) {
+        return (1 - n) * a + n * b;
+      }
+
+      x = document.scrollingElement.scrollTop;
+      function loop() {
+        x = lerp(x, scrollAmnt, 0.1);
+        document.scrollingElement.scrollTo(0, x);
+        requestAnimationFrame(loop);
+      }
+
+      loop();
+    </script>
   </body>
 </html>

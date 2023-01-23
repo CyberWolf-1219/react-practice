@@ -1,22 +1,17 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 
 function Cursor() {
   const cursor = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     if (!cursor.current) {
-      console.log(`RETURNING FROM CURSOR`);
       return;
     }
-    console.log(cursor);
 
     cursor.current!.style.transition = `all 0.1s ease`;
 
-    const links = document.querySelectorAll("a");
-    console.log(links);
-
     document.addEventListener("mousemove", (event: MouseEvent) => {
-      cursor.current!.style.transform = `translate(calc(${event.x}px - 50%), calc(${event.y}px - 50%))`;
+      cursor.current!.style.transform = `translate3D(calc(${event.x}px - 50%), calc(${event.y}px - 50%), 0px)`;
     });
   }, []);
 

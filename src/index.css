@@ -25,6 +25,9 @@
 
   cursor: none;
 }
+/* * {
+  scroll-behavior: smooth;
+} */
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -35,13 +38,6 @@
 }
 ::-webkit-scrollbar-thumb {
   background-color: #000000;
-}
-
-::-webkit-scrollbar-button {
-  background-color: var(--clr-fade);
-}
-::-webkit-scrollbar-track-piece {
-  background-color: var(--clr-fade);
 }
 
 * {
